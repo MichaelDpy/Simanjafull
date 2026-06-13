@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.simanja.controller.TargetController"
+            styleClass="root-dark"
+            prefWidth="1100" prefHeight="700">
+
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="220" spacing="0" minWidth="0">
+            <padding><Insets top="24" right="0" bottom="24" left="0"/></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="sidebar-brand-row">
+                <padding><Insets top="0" right="20" bottom="20" left="20"/></padding>
+                <ImageView fitWidth="28" fitHeight="28" preserveRatio="true" smooth="true">
+                    <image><Image url="@../images/logo-simanja.png"/></image>
+                </ImageView>
+                <Label text="SiManja" styleClass="sidebar-brand"/>
+            </HBox>
+            <Separator styleClass="sidebar-separator"/>
+            <Region prefHeight="8"/>
+            <Button text="🏠  Dashboard"  styleClass="sidebar-btn"         prefWidth="220" onAction="#handleDashboard"/>
+            <Button text="⊟  Transaksi"   styleClass="sidebar-btn"         prefWidth="220" onAction="#handleTransaksi"/>
+            <Button text="⊞  Target"      styleClass="sidebar-btn-active"  prefWidth="220" onAction="#handleTarget"/>
+            <Button text="📊  Laporan"    styleClass="sidebar-btn"         prefWidth="220" onAction="#handleLaporan"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Separator styleClass="sidebar-separator"/>
+            <Region prefHeight="8"/>
+            <HBox alignment="CENTER">
+                <padding><Insets top="0" right="12" bottom="8" left="12"/></padding>
+                <Button text="+ Catat Transaksi" styleClass="btn-sidebar-action"
+                        prefWidth="196" onAction="#handleCatatTransaksi"/>
+            </HBox>
+            <Button text="⚙  Settings"   styleClass="sidebar-btn"        prefWidth="220" onAction="#handleProfil"/>
+
+            <Button text="→  Logout"     styleClass="sidebar-btn-danger" prefWidth="220" onAction="#handleLogout"/>
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane-dark">
+            <VBox spacing="24" styleClass="main-content">
+                <padding><Insets top="28" right="30" bottom="30" left="30"/></padding>
+
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <Button fx:id="btnHamburger" text="☰" styleClass="btn-hamburger"
+                            onAction="#handleToggleSidebar"/>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label text="TOTAL TABUNGAN TERKUMPUL" styleClass="target-total-label"/>
+                        <Label fx:id="lblTotalTabungan" text="Rp 0" styleClass="target-total-value"/>
+                    </VBox>
+                    <Button text="+ Buat Target Baru" styleClass="btn-primary"
+                            onAction="#handleBuatTarget"/>
+                </HBox>
+
+                <!-- Target List -->
+                <VBox fx:id="targetListContainer" spacing="16"/>
+
+                <!-- Bottom Row: AI Suggestion + Add Card -->
+                <HBox spacing="16" alignment="CENTER_LEFT">
+                    <VBox styleClass="insight-card" spacing="10" HBox.hgrow="ALWAYS">
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label text="✦" styleClass="insight-star"/>
+                            <Label text="AI Smart Suggestion" styleClass="insight-card-title"/>
+                        </HBox>
+                        <Label fx:id="lblAiSuggestion"
+                               text="Berdasarkan sisa saldo bulan ini, kamu bisa mencapai target lebih cepat!"
+                               styleClass="insight-card-text" wrapText="true"/>
+                        <Hyperlink text="Lihat Caranya →" styleClass="link-accent"/>
+                    </VBox>
+                    <Button styleClass="add-target-card" prefWidth="300" prefHeight="160"
+                            onAction="#handleBuatTarget">
+                        <graphic>
+                            <VBox alignment="CENTER" spacing="10">
+                                <Label text="+" styleClass="add-target-plus"/>
+                                <Label text="Tambah Target Baru" styleClass="add-target-title"/>
+                                <Label text="Mulai mewujudkan impianmu hari ini."
+                                       styleClass="add-target-sub" wrapText="true" textAlignment="CENTER"/>
+                            </VBox>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
