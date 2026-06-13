@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.simanja.controller.ProfilController"
+            styleClass="root-dark"
+            prefWidth="1100" prefHeight="700">
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="0">
+            <padding><Insets top="14" right="20" bottom="14" left="16"/></padding>
+
+            <!-- Tombol Kembali -->
+            <Button text="←" styleClass="btn-back-circle" onAction="#handleBack"/>
+
+            <!-- Judul tengah -->
+            <Label text="Profil &amp; Pengaturan" styleClass="topbar-title"
+                   HBox.hgrow="ALWAYS" maxWidth="99999" textAlignment="CENTER" alignment="CENTER"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane-dark">
+            <VBox spacing="16" styleClass="main-content" alignment="TOP_CENTER">
+                <padding><Insets top="28" right="160" bottom="48" left="160"/></padding>
+
+                <!-- ══════════════════════════════════════
+                     AVATAR CARD
+                ══════════════════════════════════════ -->
+                <VBox styleClass="profile-avatar-card" alignment="CENTER" spacing="12">
+                    <padding><Insets top="32" right="0" bottom="24" left="0"/></padding>
+
+                    <!-- Avatar dengan overlay edit -->
+                    <StackPane alignment="BOTTOM_RIGHT" prefWidth="88" prefHeight="88"
+                               maxWidth="88" maxHeight="88">
+
+                        <!-- Foto profil (tampil bila ada gambar) -->
+                        <ImageView fx:id="imgAvatar"
+                                   fitWidth="88" fitHeight="88"
+                                   preserveRatio="false"
+                                   styleClass="avatar-image"
+                                   visible="false" managed="false">
+                            <clip>
+                                <Circle centerX="44" centerY="44" radius="44"/>
+                            </clip>
+                        </ImageView>
+
+                        <!-- Fallback inisial (tampil bila belum ada foto) -->
+                        <Label fx:id="lblAvatar" text="A" styleClass="avatar-circle"/>
+
+                        <!-- Tombol pensil -->
+                        <Button text="✏" styleClass="avatar-edit-btn"
+                                StackPane.alignment="BOTTOM_RIGHT"
+                                onAction="#handleUbahFoto"/>
+                    </StackPane>
+
+                    <Label fx:id="lblNamaDisplay"  text="Nama User"           styleClass="profile-name"/>
+                    <Label fx:id="lblEmailDisplay" text="user@email.com"      styleClass="profile-email"/>
+                    <Label fx:id="lblMemberSince"  text="Pengguna Setia sejak Juni 2026"
+                           styleClass="profile-member-badge"/>
+
+                    <Button text="Ubah Foto" styleClass="btn-ubah-foto"
+                            prefWidth="480" onAction="#handleUbahFoto"/>
+                </VBox>
+
+                <!-- ══════════════════════════════════════
+                     INFORMASI PRIBADI CARD (view mode)
+                ══════════════════════════════════════ -->
+                <VBox fx:id="viewCard" styleClass="profile-section-card" spacing="0">
+                    <padding><Insets top="0" right="0" bottom="0" left="0"/></padding>
+
+                    <!-- Header section -->
+                    <HBox styleClass="profile-section-header" alignment="CENTER_LEFT" spacing="10">
+                        <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+                        <Label text="👤" styleClass="profile-section-icon"/>
+                        <Label text="Informasi Pribadi" styleClass="profile-section-title"/>
+                    </HBox>
+
+                    <Separator styleClass="sidebar-separator"/>
+
+                    <!-- Dua kolom: Identitas | Kontak -->
+                    <HBox spacing="0">
+
+                        <!-- KIRI: Identitas -->
+                        <VBox spacing="20" HBox.hgrow="ALWAYS">
+                            <padding><Insets top="24" right="32" bottom="24" left="24"/></padding>
+                            <Label text="Identitas" styleClass="profile-col-title"/>
+
+                            <VBox spacing="4">
+                                <Label text="USERNAME" styleClass="profile-field-cap"/>
+                                <Label fx:id="viewUsername" text="—" styleClass="profile-field-value"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text="NAMA LENGKAP" styleClass="profile-field-cap"/>
+                                <Label fx:id="viewNama" text="—" styleClass="profile-field-value"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text="JENIS KELAMIN" styleClass="profile-field-cap"/>
+                                <Label fx:id="viewJenisKelamin" text="—" styleClass="profile-field-value"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text="TANGGAL LAHIR" styleClass="profile-field-cap"/>
+                                <Label fx:id="viewTanggalLahir" text="—" styleClass="profile-field-value"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text="ALAMAT" styleClass="profile-field-cap"/>
+                                <Label fx:id="viewAlamat" text="—" styleClass="profile-field-value"
+                                       wrapText="true"/>
+                            </VBox>
+                        </VBox>
+
+                        <!-- Divider vertikal -->
+                        <Separator orientation="VERTICAL" styleClass="sidebar-separator"/>
+
+                        <!-- KANAN: Kontak -->
+                        <VBox spacing="20" HBox.hgrow="ALWAYS">
+                            <padding><Insets top="24" right="24" bottom="24" left="32"/></padding>
+                            <Label text="Kontak" styleClass="profile-col-title"/>
+
+                            <VBox spacing="4">
+                                <Label text="EMAIL" styleClass="profile-field-cap"/>
+                                <Label fx:id="viewEmail" text="—" styleClass="profile-field-value"/>
+                            </VBox>
+                            <VBox spacing="4">
+                                <Label text="TELEPON" styleClass="profile-field-cap"/>
+                                <Label fx:id="viewTelepon" text="—" styleClass="profile-field-value"/>
+                            </VBox>
+
+                            <!-- Verifikasi badge -->
+                            <VBox styleClass="verified-box" spacing="4">
+                                <padding><Insets top="14" right="16" bottom="14" left="16"/></padding>
+                                <HBox spacing="8" alignment="CENTER_LEFT">
+                                    <Label text="✔" styleClass="verified-icon"/>
+                                    <Label text="Verifikasi Selesai" styleClass="verified-title"/>
+                                </HBox>
+                                <Label fx:id="lblVerifikasi"
+                                       text="Akun Anda telah terverifikasi penuh sejak 12 Juni 2026."
+                                       styleClass="verified-text" wrapText="true"/>
+                            </VBox>
+                        </VBox>
+                    </HBox>
+
+                    <Separator styleClass="sidebar-separator"/>
+
+                    <!-- Tombol Edit Profile -->
+                    <Button text="Edit Profile" styleClass="btn-edit-profile"
+                            prefWidth="99999" onAction="#handleEditMode"/>
+                </VBox>
+
+                <!-- ══════════════════════════════════════
+                     EDIT MODE CARD (tersembunyi awalnya)
+                ══════════════════════════════════════ -->
+                <VBox fx:id="editCard" styleClass="profile-section-card" spacing="16"
+                      visible="false" managed="false">
+                    <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="👤" styleClass="profile-section-icon"/>
+                        <Label text="Edit Informasi Pribadi" styleClass="profile-section-title"/>
+                    </HBox>
+                    <Separator styleClass="sidebar-separator"/>
+
+                    <!-- Row 1: Username + Nama -->
+                    <HBox spacing="16">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Username" styleClass="field-label"/>
+                            <TextField fx:id="txtUsername" styleClass="input-field"/>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Nama Lengkap" styleClass="field-label"/>
+                            <TextField fx:id="txtNamaLengkap" styleClass="input-field"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Row 2: Jenis Kelamin + Tanggal Lahir -->
+                    <HBox spacing="16">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Jenis Kelamin" styleClass="field-label"/>
+                            <ComboBox fx:id="cbJenisKelamin" styleClass="combo-dark"
+                                      prefWidth="99999"/>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Tanggal Lahir" styleClass="field-label"/>
+                            <TextField fx:id="txtTanggalLahir" styleClass="input-field"
+                                       promptText="cth: 15 Juni 1995"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Row 3: Email + Telepon -->
+                    <HBox spacing="16">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Email" styleClass="field-label"/>
+                            <TextField fx:id="txtEmail" styleClass="input-field"/>
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="Telepon" styleClass="field-label"/>
+                            <TextField fx:id="txtTelepon" styleClass="input-field"
+                                       promptText="cth: 0812-3456-7890"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Alamat -->
+                    <VBox spacing="6">
+                        <Label text="Alamat" styleClass="field-label"/>
+                        <TextArea fx:id="txtAlamat" styleClass="textarea-dark"
+                                  prefHeight="70" wrapText="true"
+                                  promptText="Masukkan alamat lengkap Anda"/>
+                    </VBox>
+
+                    <!-- Ubah Kata Sandi collapsible -->
+                    <TitledPane text="Ubah Kata Sandi" styleClass="collapsible-dark"
+                                animated="true" expanded="false">
+                        <VBox spacing="12" style="-fx-padding: 12 0 4 0;">
+                            <VBox spacing="6">
+                                <Label text="Kata Sandi Lama" styleClass="field-label"/>
+                                <PasswordField fx:id="txtPasswordLama" styleClass="input-field"
+                                               promptText="Masukkan kata sandi lama"/>
+                            </VBox>
+                            <VBox spacing="6">
+                                <Label text="Kata Sandi Baru" styleClass="field-label"/>
+                                <PasswordField fx:id="txtPasswordBaru" styleClass="input-field"
+                                               promptText="Minimal 6 karakter"/>
+                            </VBox>
+                            <VBox spacing="6">
+                                <Label text="Konfirmasi Kata Sandi Baru" styleClass="field-label"/>
+                                <PasswordField fx:id="txtPasswordKonfirm" styleClass="input-field"
+                                               promptText="Ulangi kata sandi baru"/>
+                            </VBox>
+                        </VBox>
+                    </TitledPane>
+
+                    <!-- Pesan -->
+                    <Label fx:id="lblProfilError"   styleClass="error-label"
+                           wrapText="true" managed="false" visible="false"/>
+                    <Label fx:id="lblProfilSuccess" styleClass="success-label"
+                           wrapText="true" managed="false" visible="false"/>
+
+                    <!-- Tombol aksi edit -->
+                    <HBox spacing="12" alignment="CENTER_RIGHT">
+                        <Button text="Batal" styleClass="btn-link-lg" onAction="#handleCancelEdit"/>
+                        <Button text="Simpan Perubahan" styleClass="btn-primary"
+                                onAction="#handleSimpan"/>
+                    </HBox>
+                </VBox>
+
+                <!-- ══════════════════════════════════════
+                     KELUAR AKUN
+                ══════════════════════════════════════ -->
+                <Button text="Keluar Akun" styleClass="btn-danger-full"
+                        prefWidth="99999" onAction="#handleLogout"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

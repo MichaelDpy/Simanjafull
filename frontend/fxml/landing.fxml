@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.simanja.controller.LandingController"
+            styleClass="root-dark"
+            prefWidth="1280" prefHeight="820">
+
+    <!-- NAVBAR -->
+    <top>
+        <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="32">
+            <padding><Insets top="16" right="40" bottom="16" left="40"/></padding>
+
+            <!-- Logo + Brand -->
+            <HBox alignment="CENTER_LEFT" spacing="10" onMouseClicked="#handleScrollToTop"
+                  style="-fx-cursor: hand;">
+                <ImageView fitWidth="28" fitHeight="28" preserveRatio="true" smooth="true">
+                    <image><Image url="@../images/logo-simanja.png"/></image>
+                </ImageView>
+                <Label text="SiManja" styleClass="brand-logo"/>
+            </HBox>
+
+            <!-- Nav links -->
+            <HBox alignment="CENTER_LEFT" spacing="8" HBox.hgrow="ALWAYS">
+                <padding><Insets left="32"/></padding>
+                <Button text="Dashboard" styleClass="nav-link-active" onAction="#handleScrollToTop"/>
+                <Button text="Fitur" styleClass="nav-link" onAction="#handleScrollToFitur"/>
+            </HBox>
+
+            <!-- Auth buttons -->
+            <HBox alignment="CENTER_RIGHT" spacing="12">
+                <Button text="Masuk"  styleClass="btn-outline" fx:id="btnLogin"  onAction="#handleLogin"/>
+                <Button text="Daftar" styleClass="btn-primary" fx:id="btnDaftar" onAction="#handleDaftar"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <ScrollPane fx:id="mainScrollPane" fitToWidth="true" styleClass="scroll-pane-dark" hbarPolicy="NEVER">
+            <VBox styleClass="landing-body" spacing="0">
+
+                <!-- ===== HERO SECTION ===== -->
+                <VBox styleClass="hero-section" alignment="CENTER" spacing="0">
+                    <padding><Insets top="80" right="120" bottom="80" left="120"/></padding>
+
+                    <!-- Update badge -->
+                    <HBox alignment="CENTER" style="-fx-padding: 0 0 28 0;">
+                        <Label text="✦  Update Terbaru 2026 Telah Tersedia" styleClass="hero-badge"/>
+                    </HBox>
+
+                    <!-- Headline -->
+                    <Label text="Kelola Keuangan Lebih" styleClass="hero-title" wrapText="true" textAlignment="CENTER"/>
+                    <Label styleClass="hero-title-mixed" wrapText="true" textAlignment="CENTER" style="-fx-padding: 0 0 0 0;">
+                        <graphic>
+                            <HBox alignment="CENTER" spacing="12">
+                                <Label text="Mudah dan" styleClass="hero-title"/>
+                                <Label text="Manja" styleClass="hero-title-accent-inline"/>
+                                <Label text="Bersama" styleClass="hero-title"/>
+                            </HBox>
+                        </graphic>
+                    </Label>
+                    <Label text="SiManja." styleClass="hero-title" wrapText="true" textAlignment="CENTER" style="-fx-padding: 0 0 20 0;"/>
+
+                    <!-- Subtitle -->
+                    <Label text="Catat transaksi harian, pantau tren pengeluaran bulanan, dan wujudkan&#10;tabungan impianmu dalam satu aplikasi yang ringkas."
+                           styleClass="hero-subtitle" textAlignment="CENTER" wrapText="true" style="-fx-padding: 0 0 36 0;"/>
+
+                    <!-- CTA Buttons -->
+                    <HBox alignment="CENTER" spacing="16">
+                        <Button text="Daftar Sekarang!" styleClass="btn-hero-primary"
+                                fx:id="btnMulai" onAction="#handleMulai"/>
+                        <Button text="Masuk" styleClass="btn-hero-outline"
+                                onAction="#handleLogin"/>
+                    </HBox>
+                </VBox>
+
+                <!-- ===== WHY SIMANJA ===== -->
+                <VBox styleClass="section-why" alignment="CENTER" spacing="0">
+                    <padding><Insets top="70" right="100" bottom="70" left="100"/></padding>
+
+                    <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 48 0;">
+                        <Label text="Kenapa Pilih SiManja?" styleClass="section-heading"/>
+                        <Region prefHeight="3" prefWidth="60" styleClass="section-heading-bar"/>
+                    </VBox>
+
+                    <HBox alignment="CENTER" spacing="20">
+                        <!-- Card 1 -->
+                        <VBox styleClass="why-card" spacing="12" prefWidth="300" alignment="TOP_LEFT">
+                            <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+                            <Label text="⚡" styleClass="why-icon"/>
+                            <Label text="Pencatatan Tanpa Ribet" styleClass="why-card-title"/>
+                            <Label text="Alur input yang intuitif dan cepat. Catat pengeluaran kategorimu hanya dalam 3 detik saja."
+                                   styleClass="why-card-desc" wrapText="true"/>
+                        </VBox>
+                        <!-- Card 2 -->
+                        <VBox styleClass="why-card" spacing="12" prefWidth="300" alignment="TOP_LEFT">
+                            <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+                            <Label text="🎯" styleClass="why-icon"/>
+                            <Label text="Menabung Terarah" styleClass="why-card-title"/>
+                            <Label text="Fitur target tracker yang membantu kamu mencapai impian lebih cepat dengan visualisasi progres."
+                                   styleClass="why-card-desc" wrapText="true"/>
+                        </VBox>
+                        <!-- Card 3 -->
+                        <VBox styleClass="why-card" spacing="12" prefWidth="300" alignment="TOP_LEFT">
+                            <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+                            <Label text="📊" styleClass="why-icon"/>
+                            <Label text="Paham Keuangan Sekali Lirik" styleClass="why-card-title"/>
+                            <Label text="Laporan analisis otomatis yang rapi dan mudah dibaca untuk memantau kesehatan finansialmu."
+                                   styleClass="why-card-desc" wrapText="true"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- ===== FITUR UNGGULAN ===== -->
+                <VBox fx:id="sectionFitur" styleClass="section-features" alignment="CENTER" spacing="0">
+                    <padding><Insets top="60" right="100" bottom="60" left="100"/></padding>
+
+                    <VBox alignment="CENTER" spacing="6" style="-fx-padding: 0 0 12 0;">
+                        <Label text="Fitur Unggulan" styleClass="section-heading"/>
+                        <Label text="Dirancang khusus untuk gaya hidup modern yang serba cepat" styleClass="section-subheading"/>
+                    </VBox>
+
+                    <Region prefHeight="36"/>
+
+                    <!-- Features 3-column -->
+                    <HBox alignment="CENTER" spacing="20">
+                        <!-- Feature 1 -->
+                        <VBox styleClass="feature-item-card" spacing="10" prefWidth="280" alignment="TOP_LEFT">
+                            <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="📝" styleClass="feature-icon-sm"/>
+                                <Label text="Formulir Transaksi Instan" styleClass="feature-item-title"/>
+                            </HBox>
+                            <Label text="Input dengan kategori pintar yang menyesuaikan kebutuhan belanjamu."
+                                   styleClass="feature-item-desc" wrapText="true"/>
+                        </VBox>
+                        <!-- Feature 2 (Center highlight) -->
+                        <VBox styleClass="feature-item-card-highlight" spacing="10" prefWidth="280" alignment="TOP_LEFT">
+                            <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+                            <Label text="🎯" styleClass="feature-icon-lg"/>
+                            <Label text="Target Tracker Interaktif" styleClass="feature-item-title-highlight"/>
+                            <Label text="Simulasi pencapaian target berdasarkan saldo dan rata-rata pengeluaran."
+                                   styleClass="feature-item-desc-light" wrapText="true"/>
+                        </VBox>
+                        <!-- Feature 3 -->
+                        <VBox styleClass="feature-item-card" spacing="10" prefWidth="280" alignment="TOP_LEFT">
+                            <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+                            <HBox alignment="CENTER_LEFT" spacing="10">
+                                <Label text="📈" styleClass="feature-icon-sm"/>
+                                <Label text="Grafik Tren Bulanan" styleClass="feature-item-title"/>
+                            </HBox>
+                            <Label text="Visualisasi arus kas yang dinamis untuk melihat ke mana uangmu mengalir."
+                                   styleClass="feature-item-desc" wrapText="true"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- ===== CTA BOTTOM ===== -->
+                <VBox styleClass="section-cta" alignment="CENTER" spacing="16">
+                    <padding><Insets top="60" right="200" bottom="60" left="200"/></padding>
+                    <Label text="Siap Kendalikan Keuanganmu?" styleClass="cta-title"/>
+                    <Label text="Bergabung dengan ribuan pengguna yang telah bertransformasi dari bingung menjadi bijak&#10;dalam finansial."
+                           styleClass="cta-subtitle" textAlignment="CENTER" wrapText="true"/>
+                    <Region prefHeight="8"/>
+                    <Button text="Mulai Sekarang - Gratis Selamanya" styleClass="btn-hero-primary"
+                            onAction="#handleMulai"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- FOOTER -->
+    <bottom>
+        <HBox styleClass="footer" alignment="CENTER" spacing="0">
+            <padding><Insets top="16" right="40" bottom="16" left="40"/></padding>
+            <HBox alignment="CENTER_LEFT" spacing="8" HBox.hgrow="ALWAYS">
+                <ImageView fitWidth="20" fitHeight="20" preserveRatio="true" smooth="true">
+                    <image><Image url="@../images/logo-simanja.png"/></image>
+                </ImageView>
+                <Label text="SiManja" styleClass="footer-brand"/>
+            </HBox>
+            <Label text="© 2026 SiManja Financial. Secure &amp; Encrypted."
+                   styleClass="footer-text" HBox.hgrow="ALWAYS" style="-fx-alignment: CENTER;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
