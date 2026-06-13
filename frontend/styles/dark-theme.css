@@ -1,0 +1,1654 @@
+/* =========================================================
+   SiManja Dark Theme — JavaFX CSS
+   Palet: Navy #0d1b2a, Dark #112240, Accent #00e5a0
+   ========================================================= */
+
+/* ---- ROOT ---- */
+.root-dark {
+    -fx-background-color: #0d1b2a;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* ---- NAVBAR ---- */
+.navbar {
+    -fx-background-color: #112240;
+    -fx-border-color: transparent transparent #1e3a5f transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.brand-logo {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+.brand-logo-large {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+.brand-logo-icon {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 28px;
+}
+
+/* ---- TOP BAR ---- */
+.topbar {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: transparent transparent #1e3a5f transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.topbar-title {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.btn-back {
+    -fx-background-color: #112240;
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 16px;
+    -fx-background-radius: 20;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-cursor: hand;
+}
+.btn-back:hover { -fx-background-color: #1e3a5f; }
+.btn-icon {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-min-width: 32;
+    -fx-min-height: 32;
+}
+.btn-icon:hover { -fx-text-fill: #e0e0e0; }
+
+/* ---- AUTH PANELS ---- */
+.auth-left-panel {
+    -fx-background-color: #0a1628;
+}
+.auth-right-panel {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: transparent transparent transparent #1e3a5f;
+    -fx-border-width: 0 0 0 1;
+}
+.auth-tagline {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 4;
+}
+.hero-tagline-bold {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-line-spacing: 4;
+}
+.hero-stat-value {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+.hero-stat-label {
+    -fx-text-fill: #556677;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+.auth-form-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 16;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 24, 0, 0, 8);
+}
+
+/* ---- INPUT FIELDS ---- */
+.input-field-wrapper {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 14 10 14;
+}
+.input-field-wrapper:focused-within {
+    -fx-border-color: #00e5a0;
+}
+.input-icon {
+    -fx-text-fill: #556677;
+    -fx-font-size: 14px;
+}
+.input-field-borderless {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-prompt-text-fill: #445566;
+    -fx-padding: 0;
+    -fx-font-size: 13px;
+}
+.input-field {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #e0e0e0;
+    -fx-prompt-text-fill: #445566;
+    -fx-padding: 10 14 10 14;
+}
+.input-field:focused {
+    -fx-border-color: #00e5a0;
+    -fx-effect: dropshadow(gaussian, rgba(0,229,160,0.2), 8, 0, 0, 0);
+}
+.textarea-dark {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #e0e0e0;
+    -fx-prompt-text-fill: #445566;
+    -fx-padding: 10 14 10 14;
+}
+.textarea-dark .content {
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 8;
+}
+.textarea-dark .scroll-pane {
+    -fx-background-color: transparent;
+}
+.textarea-dark .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+.datepicker-dark {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+.datepicker-dark .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 8 12 8 12;
+}
+.datepicker-dark .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 8 10 8 10;
+}
+.datepicker-dark .arrow-button .arrow {
+    -fx-background-color: #8899aa;
+}
+.combo-dark {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 2 0 2 4;
+}
+.combo-dark .list-cell {
+    -fx-background-color: #0d1b2a;
+    -fx-text-fill: #e0e0e0;
+    -fx-padding: 8 12 8 12;
+}
+.combo-dark .list-view {
+    -fx-background-color: #112240;
+    -fx-border-color: #1e3a5f;
+}
+.combo-dark .list-view .list-cell:hover {
+    -fx-background-color: #1e3a5f;
+}
+.combo-dark .arrow { -fx-background-color: #8899aa; }
+.combo-dark .arrow-button { -fx-background-color: transparent; }
+
+/* ---- FORM LABELS ---- */
+.form-title {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+.form-subtitle {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 13px;
+}
+.field-label {
+    -fx-text-fill: #aabbcc;
+    -fx-font-size: 12px;
+}
+.field-label-caps {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+.form-hint {
+    -fx-text-fill: #556677;
+    -fx-font-size: 11px;
+}
+.divider-text {
+    -fx-text-fill: #556677;
+    -fx-font-size: 11px;
+    -fx-alignment: center;
+}
+
+/* ---- BUTTONS ---- */
+.btn-primary {
+    -fx-background-color: #00e5a0;
+    -fx-text-fill: #0d1b2a;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 9 20 9 20;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.btn-primary:hover { -fx-background-color: #00c988; }
+
+.btn-primary-full {
+    -fx-background-color: #00e5a0;
+    -fx-text-fill: #0d1b2a;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 13 20 13 20;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+.btn-primary-full:hover { -fx-background-color: #00c988; }
+
+.btn-primary-lg {
+    -fx-background-color: #00e5a0;
+    -fx-text-fill: #0d1b2a;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 13 28 13 28;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+
+.btn-outline {
+    -fx-background-color: transparent;
+    -fx-border-color: #00e5a0;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-text-fill: #00e5a0;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+.btn-outline:hover { -fx-background-color: rgba(0,229,160,0.1); }
+
+.btn-outline-sm {
+    -fx-background-color: transparent;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-text-fill: #aabbcc;
+    -fx-padding: 8 14 8 14;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+.btn-outline-sm:hover { -fx-border-color: #00e5a0; -fx-text-fill: #00e5a0; }
+
+.btn-outline-lg {
+    -fx-background-color: transparent;
+    -fx-border-color: #00e5a0;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 10;
+    -fx-text-fill: #00e5a0;
+    -fx-padding: 13 28 13 28;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+}
+
+.btn-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+.btn-link-lg {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 10 20 10 20;
+}
+.btn-link-lg:hover { -fx-text-fill: #e0e0e0; }
+
+.btn-edit {
+    -fx-background-color: #1e3a5f;
+    -fx-text-fill: #00e5a0;
+    -fx-background-radius: 6;
+    -fx-padding: 4 10 4 10;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+.btn-hapus {
+    -fx-background-color: rgba(255,82,82,0.15);
+    -fx-text-fill: #ff5252;
+    -fx-background-radius: 6;
+    -fx-padding: 4 10 4 10;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+.btn-danger-full {
+    -fx-background-color: #8b0000;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 13 20 13 20;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.btn-danger-full:hover { -fx-background-color: #a00000; }
+
+/* ---- HYPERLINKS ---- */
+.link-accent {
+    -fx-text-fill: #00e5a0;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+}
+.link-accent-sm {
+    -fx-text-fill: #00e5a0;
+    -fx-border-color: transparent;
+    -fx-font-size: 11px;
+}
+.link-accent-caps {
+    -fx-text-fill: #00e5a0;
+    -fx-border-color: transparent;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+.link-secondary {
+    -fx-text-fill: #556677;
+    -fx-font-size: 12px;
+    -fx-border-color: transparent;
+}
+
+/* ---- MESSAGES ---- */
+.error-label {
+    -fx-text-fill: #ff5252;
+    -fx-font-size: 12px;
+    -fx-padding: 8 12 8 12;
+    -fx-background-color: rgba(255,82,82,0.1);
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(255,82,82,0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+}
+.success-label {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 12px;
+    -fx-padding: 8 12 8 12;
+    -fx-background-color: rgba(0,229,160,0.1);
+    -fx-background-radius: 6;
+}
+
+/* ---- FOOTER ---- */
+.footer { -fx-background-color: #112240; }
+.footer-text { -fx-text-fill: #556677; -fx-font-size: 11px; }
+
+/* ---- HERO SECTION (Landing) ---- */
+.hero-section { -fx-background-color: #0d1b2a; }
+.hero-title { -fx-text-fill: #e0e0e0; -fx-font-size: 34px; -fx-font-weight: bold; }
+.hero-title-accent { -fx-text-fill: #00e5a0; -fx-font-size: 40px; -fx-font-weight: bold; }
+.hero-subtitle { -fx-text-fill: #8899aa; -fx-font-size: 15px; }
+.feature-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 20 16 20 16;
+}
+.card-title { -fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold; }
+.card-desc  { -fx-text-fill: #8899aa; -fx-font-size: 12px; }
+
+/* ---- SIDEBAR ---- */
+.sidebar {
+    -fx-background-color: #0b1527;
+    -fx-border-color: transparent #1e3a5f transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+.sidebar-brand-row {
+    -fx-alignment: CENTER_LEFT;
+}
+.sidebar-brand-icon {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 20px;
+}
+.sidebar-brand {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+.sidebar-separator { -fx-background-color: #1e3a5f; }
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8899aa;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20 12 20;
+    -fx-background-radius: 0;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.sidebar-btn:hover {
+    -fx-background-color: rgba(0,229,160,0.07);
+    -fx-text-fill: #e0e0e0;
+}
+.sidebar-btn-active {
+    -fx-background-color: rgba(0,229,160,0.12);
+    -fx-text-fill: #00e5a0;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20 12 20;
+    -fx-background-radius: 0;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent #00e5a0 transparent transparent;
+    -fx-border-width: 0 3 0 0;
+    -fx-cursor: hand;
+}
+.sidebar-btn-danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ff5252;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20 12 20;
+    -fx-background-radius: 0;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+.sidebar-btn-danger:hover { -fx-background-color: rgba(255,82,82,0.1); }
+
+/* ---- MAIN CONTENT ---- */
+.main-content { -fx-background-color: #0d1b2a; }
+.scroll-pane-dark {
+    -fx-background-color: #0d1b2a;
+    -fx-background: #0d1b2a;
+}
+.scroll-pane-dark > .viewport { -fx-background-color: #0d1b2a; }
+
+/* ---- RIGHT PANEL (Transaksi) ---- */
+.right-panel {
+    -fx-background-color: #0b1527;
+    -fx-border-color: #1e3a5f transparent transparent transparent;
+    -fx-border-width: 0 0 0 1;
+}
+
+/* ---- PAGE HEADINGS ---- */
+.page-title    { -fx-text-fill: #e0e0e0; -fx-font-size: 22px; -fx-font-weight: bold; }
+.page-subtitle { -fx-text-fill: #556677; -fx-font-size: 13px; }
+.section-title { -fx-text-fill: #aabbcc; -fx-font-size: 14px; -fx-font-weight: bold; }
+
+/* ---- USER BADGE ---- */
+.user-name-badge {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: #1e3a5f;
+    -fx-background-radius: 20;
+    -fx-padding: 6 14 6 14;
+}
+
+/* ---- SUMMARY CARDS ---- */
+.summary-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 18 20 18 20;
+}
+.card-label       { -fx-text-fill: #8899aa; -fx-font-size: 12px; }
+.card-value-white { -fx-text-fill: #e0e0e0; -fx-font-size: 22px; -fx-font-weight: bold; }
+.card-value-green { -fx-text-fill: #00e5a0; -fx-font-size: 22px; -fx-font-weight: bold; }
+.card-value-blue  { -fx-text-fill: #4fc3f7; -fx-font-size: 22px; -fx-font-weight: bold; }
+.card-value-red   { -fx-text-fill: #ff5252; -fx-font-size: 22px; -fx-font-weight: bold; }
+
+/* ---- STAT PANEL CARDS (right panel transaksi) ---- */
+.stat-panel-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 14 16 14 16;
+}
+.stat-value-green  { -fx-text-fill: #00e5a0; -fx-font-size: 20px; -fx-font-weight: bold; }
+.stat-value-orange { -fx-text-fill: #ff8c42; -fx-font-size: 20px; -fx-font-weight: bold; }
+
+/* ---- MINI CARDS ---- */
+.mini-card-green  { -fx-background-color: rgba(0,229,160,0.08);  -fx-background-radius: 10; -fx-border-color: rgba(0,229,160,0.2);  -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 14 16 14 16; }
+.mini-card-red    { -fx-background-color: rgba(255,82,82,0.08);  -fx-background-radius: 10; -fx-border-color: rgba(255,82,82,0.2);  -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 14 16 14 16; }
+.mini-card-blue   { -fx-background-color: rgba(79,195,247,0.08); -fx-background-radius: 10; -fx-border-color: rgba(79,195,247,0.2); -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 14 16 14 16; }
+.mini-card-yellow { -fx-background-color: rgba(255,214,0,0.08);  -fx-background-radius: 10; -fx-border-color: rgba(255,214,0,0.2);  -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 14 16 14 16; }
+.mini-card-orange { -fx-background-color: rgba(255,152,0,0.08);  -fx-background-radius: 10; -fx-border-color: rgba(255,152,0,0.2);  -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 14 16 14 16; }
+.mini-card-label  { -fx-text-fill: #8899aa; -fx-font-size: 11px; }
+.mini-card-value  { -fx-text-fill: #e0e0e0; -fx-font-size: 16px; -fx-font-weight: bold; }
+
+/* ---- CHART CARDS ---- */
+.chart-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 16 20 16 20;
+}
+.table-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 16 20 16 20;
+}
+
+/* Legend dots */
+.legend-dot-green  { -fx-background-color: #00e5a0; -fx-background-radius: 5; }
+.legend-dot-orange { -fx-background-color: #ff8c42; -fx-background-radius: 5; }
+.legend-label { -fx-text-fill: #8899aa; -fx-font-size: 11px; }
+
+/* ---- BUDGET STATUS ---- */
+.budget-item-label { -fx-text-fill: #aabbcc; -fx-font-size: 12px; }
+.budget-item-pct   { -fx-text-fill: #ff8c42; -fx-font-size: 12px; -fx-font-weight: bold; }
+
+/* ---- TAGIHAN ---- */
+.tagihan-row {
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 8;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+.tagihan-row:hover { -fx-background-color: #112240; }
+.tagihan-icon {
+    -fx-font-size: 16px;
+    -fx-background-color: #1e3a5f;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+}
+.tagihan-name   { -fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold; }
+.tagihan-due    { -fx-text-fill: #8899aa; -fx-font-size: 11px; }
+.tagihan-amount { -fx-text-fill: #ff8c42; -fx-font-size: 12px; -fx-font-weight: bold; }
+
+/* ---- TABLE ---- */
+.dark-table {
+    -fx-background-color: transparent;
+    -fx-border-color: #1e3a5f;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+.dark-table .column-header-background { -fx-background-color: #0b1527; }
+.dark-table .filler               { -fx-background-color: #0b1527; }
+.dark-table .corner               { -fx-background-color: #0b1527; }
+.dark-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #1e3a5f transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.dark-table .column-header .label {
+    -fx-text-fill: #aabbcc;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+.dark-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #1a2f4a transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-text-fill: #ccddee;
+}
+.dark-table .table-row-cell:hover    { -fx-background-color: rgba(0,229,160,0.05); }
+.dark-table .table-row-cell:selected { -fx-background-color: rgba(0,229,160,0.12); }
+.dark-table .table-cell { -fx-text-fill: #ccddee; -fx-padding: 8 12 8 12; }
+
+/* ---- CHARTS ---- */
+.dark-chart {
+    -fx-background-color: transparent;
+    -fx-plot-background-color: transparent;
+}
+.dark-chart .chart-plot-background { -fx-background-color: transparent; }
+.dark-chart .axis                  { -fx-tick-label-fill: #8899aa; }
+.dark-chart .chart-title           { -fx-text-fill: #aabbcc; }
+.dark-chart .axis-label            { -fx-text-fill: #8899aa; }
+.dark-chart .chart-legend          { -fx-background-color: transparent; }
+.dark-chart .chart-legend-item     { -fx-text-fill: #8899aa; }
+
+/* Line chart */
+.dark-chart .default-color0.chart-series-line { -fx-stroke: #00e5a0; -fx-stroke-width: 2.5; }
+.dark-chart .default-color1.chart-series-line { -fx-stroke: #ff8c42; -fx-stroke-width: 2.5; }
+.dark-chart .default-color0.chart-line-symbol { -fx-background-color: #00e5a0, white; }
+.dark-chart .default-color1.chart-line-symbol { -fx-background-color: #ff8c42, white; }
+.dark-chart .chart-series-area-fill.default-color0 { -fx-fill: rgba(0,229,160,0.15); }
+.dark-chart .chart-series-area-fill.default-color1 { -fx-fill: rgba(255,140,66,0.15); }
+
+/* Bar chart */
+.dark-chart .default-color0.chart-bar { -fx-bar-fill: #00e5a0; }
+.dark-chart .default-color1.chart-bar { -fx-bar-fill: #ff8c42; }
+
+/* Pie chart */
+.dark-chart .chart-pie-label        { -fx-fill: #aabbcc; -fx-font-size: 12px; }
+.dark-chart .chart-pie-label-line   { -fx-stroke: #445566; }
+.dark-chart .default-color0.chart-pie { -fx-pie-color: #00e5a0; }
+.dark-chart .default-color1.chart-pie { -fx-pie-color: #4fc3f7; }
+.dark-chart .default-color2.chart-pie { -fx-pie-color: #ff5252; }
+.dark-chart .default-color3.chart-pie { -fx-pie-color: #ffd600; }
+.dark-chart .default-color4.chart-pie { -fx-pie-color: #ff9800; }
+.dark-chart .default-color5.chart-pie { -fx-pie-color: #e040fb; }
+
+/* ---- SIDEBAR ACTION BUTTON ---- */
+.btn-sidebar-action {
+    -fx-background-color: #4ade80;
+    -fx-text-fill: #0d1b2a;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16 12 16;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.btn-sidebar-action:hover { -fx-background-color: #34d399; }
+
+/* ---- HAMBURGER ---- */
+.btn-hamburger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+    -fx-padding: 4 8 4 8;
+    -fx-background-radius: 6;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+}
+.btn-hamburger:hover { -fx-background-color: rgba(0,229,160,0.1); -fx-text-fill: #00e5a0; }
+
+/* ---- TARGET PAGE ---- */
+.target-total-label { -fx-text-fill: #8899aa; -fx-font-size: 11px; -fx-font-weight: bold; }
+.target-total-value { -fx-text-fill: #4ade80; -fx-font-size: 30px; -fx-font-weight: bold; }
+.target-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 14;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+}
+.target-card-achieved {
+    -fx-background-color: #112240;
+    -fx-background-radius: 14;
+    -fx-border-color: #ff8c42;
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+}
+.target-icon {
+    -fx-font-size: 22px;
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 12;
+    -fx-min-width: 48;
+    -fx-min-height: 48;
+    -fx-alignment: center;
+}
+.target-card-title    { -fx-text-fill: #e0e0e0; -fx-font-size: 16px; -fx-font-weight: bold; }
+.target-card-subtitle { -fx-text-fill: #8899aa; -fx-font-size: 12px; }
+.target-amount-text   { -fx-text-fill: #aabbcc; -fx-font-size: 13px; }
+.target-badge-achieved {
+    -fx-text-fill: #ff8c42;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 10 4 10;
+    -fx-background-color: rgba(255,140,66,0.15);
+    -fx-background-radius: 6;
+}
+.target-done-label { -fx-text-fill: #ff8c42; -fx-font-size: 13px; -fx-font-weight: bold; }
+.progress-pct-label { -fx-text-fill: #4ade80; -fx-font-size: 13px; -fx-font-weight: bold; }
+
+.target-progress       { -fx-accent: #4ade80; }
+.target-progress .track { -fx-background-color: #1e3a5f; -fx-background-radius: 4; }
+.target-progress .bar   { -fx-background-color: #4ade80; -fx-background-radius: 4; }
+
+.target-progress-achieved       { -fx-accent: #ff8c42; }
+.target-progress-achieved .bar  { -fx-background-color: #ff8c42; }
+
+.progress-green { -fx-accent: #4ade80; }
+.progress-green .bar { -fx-background-color: #4ade80; -fx-background-radius: 3; }
+.progress-green .track { -fx-background-color: #1e3a5f; -fx-background-radius: 3; }
+
+.progress-orange { -fx-accent: #ff8c42; }
+.progress-orange .bar { -fx-background-color: #ff8c42; -fx-background-radius: 3; }
+.progress-orange .track { -fx-background-color: #1e3a5f; -fx-background-radius: 3; }
+
+.progress-danger { -fx-accent: #ff5252; }
+.progress-danger .bar { -fx-background-color: #ff5252; -fx-background-radius: 3; }
+.progress-danger .track { -fx-background-color: #1e3a5f; -fx-background-radius: 3; }
+
+.btn-isi-celengan {
+    -fx-background-color: #1e3a5f;
+    -fx-text-fill: #4ade80;
+    -fx-background-radius: 8;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+.btn-isi-celengan:hover { -fx-background-color: #243b5c; }
+
+/* ---- INSIGHT CARDS ---- */
+.insight-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 14;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-padding: 20 24 20 24;
+}
+.insight-star       { -fx-text-fill: #4ade80; -fx-font-size: 16px; }
+.insight-card-title { -fx-text-fill: #4ade80; -fx-font-size: 14px; -fx-font-weight: bold; }
+.insight-card-text  { -fx-text-fill: #8899aa; -fx-font-size: 13px; }
+
+/* Insight stat cards (laporan) */
+.insight-stat-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-padding: 16 18 16 18;
+}
+.insight-card-title2 { -fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold; }
+.insight-icon-warn   { -fx-text-fill: #ff8c42; -fx-font-size: 18px; }
+.insight-icon-info   { -fx-text-fill: #4fc3f7; -fx-font-size: 18px; }
+.insight-icon-stable { -fx-text-fill: #00e5a0; -fx-font-size: 18px; }
+.badge-boros  { -fx-text-fill: #ff5252; -fx-font-size: 10px; -fx-font-weight: bold; -fx-background-color: rgba(255,82,82,0.15); -fx-background-radius: 4; -fx-padding: 2 8 2 8; }
+.badge-pola   { -fx-text-fill: #4fc3f7; -fx-font-size: 10px; -fx-font-weight: bold; -fx-background-color: rgba(79,195,247,0.15); -fx-background-radius: 4; -fx-padding: 2 8 2 8; }
+.badge-stabil { -fx-text-fill: #00e5a0; -fx-font-size: 10px; -fx-font-weight: bold; -fx-background-color: rgba(0,229,160,0.15); -fx-background-radius: 4; -fx-padding: 2 8 2 8; }
+
+/* ---- ADD TARGET CARD ---- */
+.add-target-card {
+    -fx-background-color: transparent;
+    -fx-border-color: #2a3f5f;
+    -fx-border-width: 2;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-cursor: hand;
+}
+.add-target-card:hover {
+    -fx-border-color: #4ade80;
+    -fx-background-color: rgba(74,222,128,0.05);
+}
+.add-target-plus  { -fx-text-fill: #8899aa; -fx-font-size: 28px; }
+.add-target-title { -fx-text-fill: #e0e0e0; -fx-font-size: 14px; -fx-font-weight: bold; }
+.add-target-sub   { -fx-text-fill: #8899aa; -fx-font-size: 12px; }
+
+/* ---- MODALS ---- */
+.modal-dialog {
+    -fx-background-color: #0f1e35;
+    -fx-background-radius: 16;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 32, 0, 0, 12);
+}
+.modal-title      { -fx-text-fill: #e0e0e0; -fx-font-size: 18px; -fx-font-weight: bold; }
+.modal-separator  { -fx-background-color: #1e3a5f; }
+.btn-modal-close  {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-padding: 2 8 2 8;
+    -fx-background-radius: 6;
+}
+.btn-modal-close:hover { -fx-background-color: #1e3a5f; -fx-text-fill: #e0e0e0; }
+
+/* ---- AMOUNT INPUT (Modal) ---- */
+.amount-input-box {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #4ade80;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12 16 12 16;
+}
+.amount-prefix {
+    -fx-text-fill: #4ade80;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+.amount-input-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-prompt-text-fill: #2a3f5f;
+}
+
+/* ---- SIMANJA INSIGHT BOX ---- */
+.simanja-insight-box {
+    -fx-background-color: rgba(74,222,128,0.07);
+    -fx-border-color: rgba(74,222,128,0.22);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 14 16 14 16;
+}
+.insight-box-title { -fx-text-fill: #4ade80; -fx-font-size: 13px; -fx-font-weight: bold; }
+.insight-box-text  { -fx-text-fill: #aabbcc; -fx-font-size: 12px; }
+
+/* ---- PROGRESS INFO BOX ---- */
+.progress-info-box {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 14 16 14 16;
+}
+
+/* ---- ICON PICKERS ---- */
+.icon-picker-selected {
+    -fx-font-size: 28px;
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 10;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 8 12 8 12;
+    -fx-min-width: 56;
+    -fx-alignment: center;
+}
+.icon-picker-btn {
+    -fx-background-color: #112240;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 18px;
+    -fx-padding: 8 12 8 12;
+    -fx-cursor: hand;
+    -fx-min-width: 52;
+    -fx-min-height: 44;
+}
+.icon-picker-btn:hover { -fx-border-color: #4ade80; -fx-background-color: #1a2f4a; }
+
+/* ---- TOGGLE JENIS (Form Transaksi) ---- */
+.toggle-jenis-container {
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 10;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 4;
+}
+.toggle-btn-active-red {
+    -fx-background-color: #4a1020;
+    -fx-text-fill: #ff6b6b;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+}
+.toggle-btn-active-green {
+    -fx-background-color: #0d3a2a;
+    -fx-text-fill: #4ade80;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+}
+.toggle-btn-inactive {
+    -fx-background-color: transparent;
+    -fx-text-fill: #556677;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+}
+.toggle-btn-inactive:hover { -fx-text-fill: #8899aa; }
+
+/* ---- TRANSAKSI LIST (custom per tanggal) ---- */
+.transaksi-date-header {
+    -fx-text-fill: #556677;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 2;
+}
+.transaksi-row {
+    -fx-background-color: #112240;
+    -fx-background-radius: 10;
+    -fx-border-color: #1a2f4a;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+.transaksi-row:hover { -fx-background-color: #162a47; }
+.transaksi-icon {
+    -fx-font-size: 18px;
+    -fx-background-color: #0d1b2a;
+    -fx-background-radius: 10;
+    -fx-alignment: center;
+}
+.transaksi-row-title    { -fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold; }
+.transaksi-row-sub      { -fx-text-fill: #556677; -fx-font-size: 11px; }
+.transaksi-amount-green { -fx-text-fill: #4ade80; -fx-font-size: 13px; -fx-font-weight: bold; }
+.transaksi-amount-red   { -fx-text-fill: #ff5252; -fx-font-size: 13px; -fx-font-weight: bold; }
+.btn-row-menu {
+    -fx-background-color: transparent;
+    -fx-text-fill: #556677;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-padding: 0 4 0 4;
+    -fx-background-radius: 4;
+}
+.btn-row-menu:hover { -fx-text-fill: #e0e0e0; -fx-background-color: #1e3a5f; }
+
+/* ---- DATE FILTER BAR ---- */
+.date-filter-bar {
+    -fx-background-color: #112240;
+    -fx-background-radius: 8;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-padding: 10 16 10 16;
+    -fx-cursor: hand;
+}
+.date-range-label { -fx-text-fill: #e0e0e0; -fx-font-size: 13px; }
+
+/* ---- TOP KATEGORI (right panel) ---- */
+.transaksi-icon-sm {
+    -fx-font-size: 14px;
+    -fx-background-color: #1e3a5f;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+}
+.top-kat-name   { -fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold; }
+.top-kat-count  { -fx-text-fill: #556677; -fx-font-size: 11px; }
+.top-kat-amount { -fx-text-fill: #aabbcc; -fx-font-size: 12px; -fx-font-weight: bold; }
+
+/* ---- WAWASAN CARD ---- */
+.wawasan-card {
+    -fx-background-color: #0a1628;
+    -fx-background-radius: 10;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-padding: 14 16 14 16;
+}
+.wawasan-badge {
+    -fx-text-fill: #4ade80;
+    -fx-font-size: 9px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(74,222,128,0.15);
+    -fx-background-radius: 4;
+    -fx-padding: 2 8 2 8;
+}
+.wawasan-title { -fx-text-fill: #e0e0e0; -fx-font-size: 13px; -fx-font-weight: bold; }
+.wawasan-text  { -fx-text-fill: #8899aa; -fx-font-size: 12px; }
+
+/* ---- PROFILE PAGE ---- */
+.profile-avatar-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 16;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 16;
+    -fx-alignment: center;
+}
+.avatar-circle {
+    -fx-text-fill: #0d1b2a;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-background-color: #00e5a0;
+    -fx-background-radius: 40;
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+    -fx-alignment: center;
+}
+.avatar-image {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 0, 2);
+}
+.avatar-edit-btn {
+    -fx-background-color: #00e5a0;
+    -fx-text-fill: #0d1b2a;
+    -fx-font-size: 10px;
+    -fx-background-radius: 12;
+    -fx-min-width: 24;
+    -fx-min-height: 24;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+.profile-name         { -fx-text-fill: #e0e0e0; -fx-font-size: 20px; -fx-font-weight: bold; }
+.profile-email        { -fx-text-fill: #8899aa; -fx-font-size: 13px; }
+.profile-member-badge {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 11px;
+    -fx-background-color: #1e3a5f;
+    -fx-background-radius: 10;
+    -fx-padding: 4 12 4 12;
+}
+.profile-section-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 12;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+.profile-section-title {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+.profile-nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8899aa;
+    -fx-padding: 14 20 14 20;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.profile-nav-btn:hover { -fx-background-color: #162a47; -fx-text-fill: #e0e0e0; }
+.profile-nav-btn-active {
+    -fx-background-color: rgba(0,229,160,0.08);
+    -fx-text-fill: #00e5a0;
+    -fx-padding: 14 20 14 20;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* ---- COLLAPSIBLE TITLED PANE ---- */
+.collapsible-dark {
+    -fx-background-color: #0d1b2a;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+.collapsible-dark > .title {
+    -fx-background-color: #0d1b2a;
+    -fx-text-fill: #aabbcc;
+    -fx-padding: 10 14 10 14;
+}
+.collapsible-dark > .title > .text { -fx-fill: #aabbcc; }
+.collapsible-dark > .title .arrow  { -fx-background-color: #8899aa; }
+.collapsible-dark > .content       { -fx-background-color: #0d1b2a; -fx-padding: 0 14 14 14; }
+
+/* ---- SCROLLBAR ---- */
+.scroll-bar:vertical,
+.scroll-bar:horizontal { -fx-background-color: #0d1b2a; }
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb { -fx-background-color: #1e3a5f; -fx-background-radius: 4; }
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover { -fx-background-color: #00e5a0; }
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button { -fx-background-color: transparent; }
+
+/* ============================================================
+   PROFIL PAGE — tambahan style
+   ============================================================ */
+
+/* Top bar back button (bulat) */
+.btn-back-circle {
+    -fx-background-color: #112240;
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-min-width: 38;
+    -fx-min-height: 38;
+    -fx-cursor: hand;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+}
+.btn-back-circle:hover {
+    -fx-background-color: #1e3a5f;
+}
+
+/* Icon topbar kanan */
+.btn-icon-topbar {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-min-width: 34;
+    -fx-min-height: 34;
+    -fx-background-radius: 6;
+}
+.btn-icon-topbar:hover {
+    -fx-background-color: #1e3a5f;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Header section profil */
+.profile-section-header {
+    -fx-background-color: transparent;
+}
+.profile-section-icon {
+    -fx-font-size: 15px;
+    -fx-text-fill: #00e5a0;
+}
+
+/* Judul kolom (Identitas / Kontak) */
+.profile-col-title {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+/* Field cap (label kecil uppercase) */
+.profile-field-cap {
+    -fx-text-fill: #556677;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+/* Nilai field (teks besar) */
+.profile-field-value {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Tombol Ubah Foto */
+.btn-ubah-foto {
+    -fx-background-color: transparent;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #aabbcc;
+    -fx-padding: 10 0 10 0;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.btn-ubah-foto:hover {
+    -fx-border-color: #00e5a0;
+    -fx-text-fill: #00e5a0;
+}
+
+/* Tombol Edit Profile (full-width di bawah card) */
+.btn-edit-profile {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #aabbcc;
+    -fx-font-size: 13px;
+    -fx-padding: 14 0 14 0;
+    -fx-cursor: hand;
+    -fx-background-radius: 0 0 12 12;
+}
+.btn-edit-profile:hover {
+    -fx-background-color: rgba(0,229,160,0.05);
+    -fx-text-fill: #00e5a0;
+}
+
+/* Verifikasi badge box */
+.verified-box {
+    -fx-background-color: rgba(0,229,160,0.08);
+    -fx-border-color: rgba(0,229,160,0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+.verified-icon  { -fx-text-fill: #00e5a0; -fx-font-size: 14px; }
+.verified-title { -fx-text-fill: #00e5a0; -fx-font-size: 13px; -fx-font-weight: bold; }
+.verified-text  { -fx-text-fill: #8899aa; -fx-font-size: 12px; }
+
+/* User name badge sebagai Button (bisa diklik) */
+.user-name-badge-btn {
+    -fx-background-color: #1e3a5f;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+.user-name-badge-btn:hover {
+    -fx-background-color: #00e5a0;
+    -fx-text-fill: #0d1b2a;
+}
+
+/* Avatar mini (32x32) untuk header dashboard */
+.avatar-circle-mini {
+    -fx-text-fill: #0d1b2a;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-color: #00e5a0;
+    -fx-background-radius: 16;
+    -fx-min-width: 32;
+    -fx-min-height: 32;
+    -fx-max-width: 32;
+    -fx-max-height: 32;
+    -fx-alignment: center;
+}
+
+/* Label nama di dalam badge HBox */
+.user-badge-name {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Hover state untuk badge HBox */
+.user-name-badge-btn:hover .user-badge-name {
+    -fx-text-fill: #0d1b2a;
+}
+.user-name-badge-btn:hover .avatar-circle-mini {
+    -fx-background-color: #0d1b2a;
+    -fx-text-fill: #00e5a0;
+}
+.user-name-badge-btn:hover {
+    -fx-background-color: #00e5a0;
+}
+
+/* =============================================================
+   LANDING PAGE — Revisi agar mirip desain Figma
+   ============================================================= */
+
+/* Root landing */
+.landing-body {
+    -fx-background-color: #0d1b2a;
+}
+
+/* ---- NAVBAR (Updated) ---- */
+.navbar {
+    -fx-background-color: #0b1527;
+    -fx-border-color: transparent transparent #1a2f4a transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.brand-logo {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+.nav-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #aabbcc;
+    -fx-font-size: 13px;
+    -fx-padding: 6 14 6 14;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+.nav-link:hover {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: rgba(255,255,255,0.05);
+}
+.nav-link-active {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 14 6 14;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+/* ---- HERO SECTION ---- */
+.hero-section {
+    -fx-background-color: #0b1527;
+    -fx-border-color: transparent transparent #1a2f4a transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Hero badge / pill */
+.hero-badge {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgba(0,229,160,0.1);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(0,229,160,0.25);
+    -fx-border-width: 1;
+    -fx-border-radius: 20;
+    -fx-padding: 6 16 6 16;
+}
+
+/* Hero titles */
+.hero-title {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.hero-title-accent-inline {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+}
+.hero-title-accent {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.hero-title-mixed {
+    -fx-alignment: center;
+}
+.hero-subtitle {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 15px;
+    -fx-line-spacing: 4;
+    -fx-alignment: center;
+}
+
+/* CTA buttons for hero */
+.btn-hero-primary {
+    -fx-background-color: #00e5a0;
+    -fx-text-fill: #0b1527;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-background-radius: 10;
+    -fx-padding: 14 32 14 32;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,229,160,0.3), 12, 0, 0, 4);
+}
+.btn-hero-primary:hover {
+    -fx-background-color: #00c988;
+    -fx-effect: dropshadow(gaussian, rgba(0,229,160,0.45), 18, 0, 0, 6);
+}
+.btn-hero-outline {
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 10;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 15px;
+    -fx-padding: 14 32 14 32;
+    -fx-cursor: hand;
+}
+.btn-hero-outline:hover {
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+}
+
+/* ---- WHY SIMANJA SECTION ---- */
+.section-why {
+    -fx-background-color: #0d1b2a;
+}
+.section-heading {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.section-heading-bar {
+    -fx-background-color: #00e5a0;
+    -fx-background-radius: 2;
+    -fx-alignment: center;
+}
+.section-subheading {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+}
+.why-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 14;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2);
+}
+.why-card:hover {
+    -fx-border-color: rgba(0,229,160,0.3);
+    -fx-effect: dropshadow(gaussian, rgba(0,229,160,0.08), 16, 0, 0, 4);
+}
+.why-icon {
+    -fx-font-size: 28px;
+}
+.why-card-title {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+.why-card-desc {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3;
+}
+
+/* ---- FITUR UNGGULAN ---- */
+.section-features {
+    -fx-background-color: #0b1527;
+    -fx-border-color: #1a2f4a transparent #1a2f4a transparent;
+    -fx-border-width: 1 0 1 0;
+}
+.feature-item-card {
+    -fx-background-color: #112240;
+    -fx-background-radius: 14;
+    -fx-border-color: #1e3a5f;
+    -fx-border-width: 1;
+    -fx-border-radius: 14;
+}
+.feature-item-card-highlight {
+    -fx-background-color: #0d3a2a;
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(0,229,160,0.4);
+    -fx-border-width: 1.5;
+    -fx-border-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0,229,160,0.15), 20, 0, 0, 6);
+}
+.feature-icon-sm {
+    -fx-font-size: 18px;
+}
+.feature-icon-lg {
+    -fx-font-size: 36px;
+}
+.feature-item-title {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.feature-item-title-highlight {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.feature-item-desc {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3;
+}
+.feature-item-desc-light {
+    -fx-text-fill: #aabbcc;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3;
+}
+
+/* ---- CTA BOTTOM ---- */
+.section-cta {
+    -fx-background-color: #0d2a1e;
+    -fx-border-color: rgba(0,229,160,0.12) transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.cta-title {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+.cta-subtitle {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 3;
+    -fx-alignment: center;
+}
+
+/* ---- FOOTER (Updated) ---- */
+.footer {
+    -fx-background-color: #0b1527;
+    -fx-border-color: #1a2f4a transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+}
+.footer-brand {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.footer-link {
+    -fx-text-fill: #556677;
+    -fx-border-color: transparent;
+    -fx-font-size: 12px;
+}
+.footer-link:hover {
+    -fx-text-fill: #aabbcc;
+}
+.footer-text {
+    -fx-text-fill: #556677;
+    -fx-font-size: 11px;
+}
+
+/* =============================================================
+   AUTH PAGES — Revisi agar mirip desain Figma
+   ============================================================= */
+
+/* Left panel — dark deep navy with subtle gradient feel */
+.auth-left-panel {
+    -fx-background-color: linear-gradient(to bottom, #0a1628 0%, #0d2240 100%);
+}
+.auth-left-inner {
+    -fx-background-color: transparent;
+}
+
+/* Divider line in form */
+.divider-line {
+    -fx-background-color: #1e3a5f;
+    -fx-pref-height: 1;
+    -fx-max-height: 1;
+}
+
+/* Input wrapper focus glow */
+.input-field-wrapper:focused-within {
+    -fx-border-color: #00e5a0;
+    -fx-effect: dropshadow(gaussian, rgba(0,229,160,0.15), 8, 0, 0, 0);
+}
+
+/* Larger auth brand logo */
+.brand-logo-large {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
+
+/* =============================================================
+   AUTH BACKGROUND IMAGE — login & register
+   ============================================================= */
+
+/* Foto background panel kiri, di-stretch penuh */
+.auth-bg-image {
+    -fx-fit-width: 520;
+    -fx-preserve-ratio: false;
+}
+
+/* Overlay gelap di atas foto — gradient dari bawah ke atas */
+.auth-bg-overlay {
+    -fx-background-color: linear-gradient(
+        to top,
+        rgba(8, 18, 35, 0.92) 0%,
+        rgba(8, 18, 35, 0.65) 45%,
+        rgba(8, 18, 35, 0.30) 100%
+    );
+
+}
+
+/* Teks logo di atas foto */
+.auth-brand-overlay {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/* Tagline bold di atas foto */
+.auth-tagline-overlay {
+    -fx-text-fill: #f0f0f0;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-line-spacing: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 6, 0, 0, 2);
+}
+
+/* Deskripsi di atas foto */
+.auth-desc-overlay {
+    -fx-text-fill: rgba(200, 215, 230, 0.85);
+    -fx-font-size: 13px;
+    -fx-line-spacing: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 4, 0, 0, 1);
+}
+
+/* Angka stat (10k+, 99%) */
+.auth-stat-value {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 6, 0, 0, 2);
+}
+
+/* Label stat (PENGGUNA AKTIF) */
+.auth-stat-label {
+    -fx-text-fill: rgba(180, 200, 220, 0.75);
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 4, 0, 0, 1);
+}
+
+/* =============================================================
+   AUTH BACKGROUND IMAGE — login & register
+   ============================================================= */
+
+/* StackPane kiri — stretch mengikuti tinggi parent */
+.auth-left-stack {
+    -fx-min-width: 460;
+    -fx-pref-width: 520;
+}
+
+/* Overlay gelap: gradient kuat dari bawah, tipis di atas
+   Pakai -fx-background-color pada Pane agar bisa stretch penuh */
+.auth-bg-overlay {
+    -fx-background-color: linear-gradient(
+        to top,
+        rgba(5, 14, 28, 0.95)  0%,
+        rgba(5, 14, 28, 0.70) 40%,
+        rgba(5, 14, 28, 0.35) 75%,
+        rgba(5, 14, 28, 0.15) 100%
+    );
+}
+
+/* Teks logo di atas foto */
+.auth-brand-overlay {
+    -fx-text-fill: #00e5a0;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+/* Tagline bold di atas foto */
+.auth-tagline-overlay {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-line-spacing: 4;
+}
+
+/* Deskripsi di atas foto */
+.auth-desc-overlay {
+    -fx-text-fill: rgba(190, 210, 225, 0.85);
+    -fx-font-size: 13px;
+    -fx-line-spacing: 5;
+}
+
+/* Angka stat (10k+, 99%) */
+.auth-stat-value {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* Label stat (PENGGUNA AKTIF) */
+.auth-stat-label {
+    -fx-text-fill: rgba(170, 195, 215, 0.75);
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
