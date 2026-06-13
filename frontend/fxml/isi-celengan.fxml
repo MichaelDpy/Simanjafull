@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.simanja.controller.IsiCelenganController"
+      styleClass="modal-dialog"
+      spacing="20" prefWidth="480">
+    <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="lblJudul" text="Isi Celengan" styleClass="modal-title" HBox.hgrow="ALWAYS"/>
+        <Button text="✕" styleClass="btn-modal-close" onAction="#handleBatal"/>
+    </HBox>
+
+    <!-- Nominal -->
+    <VBox spacing="8">
+        <Label text="NOMINAL YANG DITABUNG" styleClass="field-label-caps"/>
+        <HBox styleClass="amount-input-box" alignment="CENTER_LEFT" spacing="8">
+            <Label text="Rp" styleClass="amount-prefix"/>
+            <TextField fx:id="txtNominal" promptText="0" styleClass="amount-input-field" HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
+
+    <!-- Sumber Dana + Tanggal -->
+    <HBox spacing="16">
+        <VBox spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="SUMBER DANA" styleClass="field-label-caps"/>
+            <ComboBox fx:id="cbSumber" styleClass="combo-dark" prefWidth="99999"/>
+        </VBox>
+        <VBox spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="TANGGAL" styleClass="field-label-caps"/>
+            <DatePicker fx:id="dpTanggal" styleClass="datepicker-dark" prefWidth="99999"/>
+        </VBox>
+    </HBox>
+
+    <!-- Progress Bar -->
+    <VBox styleClass="progress-info-box" spacing="8">
+        <HBox>
+            <Label text="Progress saat ini" styleClass="form-hint" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblProgressPct" text="0%" styleClass="progress-pct-label"/>
+        </HBox>
+        <ProgressBar fx:id="progressBar" prefWidth="99999" prefHeight="8" styleClass="target-progress"/>
+    </VBox>
+
+    <Label fx:id="lblError" styleClass="error-label" wrapText="true" managed="false" visible="false"/>
+
+    <!-- Buttons -->
+    <HBox alignment="CENTER_RIGHT" spacing="16">
+        <Button text="Batal" styleClass="btn-link-lg" onAction="#handleBatal"/>
+        <Button text="💰  Masukkan Celengan" styleClass="btn-primary-full"
+                prefWidth="220" onAction="#handleSubmit"/>
+    </HBox>
+</VBox>
