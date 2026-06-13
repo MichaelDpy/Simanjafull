@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.simanja.controller.TransaksiController"
+            styleClass="root-dark"
+            prefWidth="1100" prefHeight="700">
+
+    <!-- SIDEBAR -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="220" spacing="0" minWidth="0">
+            <padding><Insets top="24" right="0" bottom="24" left="0"/></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10" styleClass="sidebar-brand-row">
+                <padding><Insets top="0" right="20" bottom="20" left="20"/></padding>
+                <ImageView fitWidth="28" fitHeight="28" preserveRatio="true" smooth="true">
+                    <image><Image url="@../images/logo-simanja.png"/></image>
+                </ImageView>
+                <Label text="SiManja" styleClass="sidebar-brand"/>
+            </HBox>
+            <Separator styleClass="sidebar-separator"/>
+            <Region prefHeight="8"/>
+            <Button text="🏠  Dashboard"  styleClass="sidebar-btn"         prefWidth="220" onAction="#handleDashboard"/>
+            <Button text="⊟  Transaksi"   styleClass="sidebar-btn-active"  prefWidth="220" onAction="#handleTransaksi"/>
+            <Button text="⊞  Target"      styleClass="sidebar-btn"         prefWidth="220" onAction="#handleTarget"/>
+            <Button text="📊  Laporan"    styleClass="sidebar-btn"         prefWidth="220" onAction="#handleLaporan"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Separator styleClass="sidebar-separator"/>
+            <Region prefHeight="8"/>
+            <HBox alignment="CENTER">
+                <padding><Insets top="0" right="12" bottom="8" left="12"/></padding>
+                <Button text="+ Catat Transaksi" styleClass="btn-sidebar-action"
+                        prefWidth="196" onAction="#handleCatatTransaksi"/>
+            </HBox>
+            <Button text="⚙  Settings"   styleClass="sidebar-btn"        prefWidth="220" onAction="#handleProfil"/>
+
+            <Button text="→  Logout"     styleClass="sidebar-btn-danger" prefWidth="220" onAction="#handleLogout"/>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <HBox>
+            <!-- LEFT: Transaction list -->
+            <VBox spacing="16" styleClass="main-content" HBox.hgrow="ALWAYS">
+                <padding><Insets top="28" right="16" bottom="28" left="28"/></padding>
+
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Button fx:id="btnHamburger" text="☰" styleClass="btn-hamburger"
+                            onAction="#handleToggleSidebar"/>
+                    <VBox spacing="2" HBox.hgrow="ALWAYS">
+                        <Label text="Transaksi" styleClass="page-title"/>
+                    </VBox>
+                    <Button text="+ Catat Transaksi" fx:id="btnTambah"
+                            styleClass="btn-primary" onAction="#handleTambah"/>
+                </HBox>
+
+                <!-- Date Filter Bar -->
+                <HBox styleClass="date-filter-bar" alignment="CENTER_LEFT" spacing="8">
+                    <Label text="📅" styleClass="input-icon"/>
+                    <Label fx:id="lblDateRange" text="01/06/26 – 30/06/26" styleClass="date-range-label" HBox.hgrow="ALWAYS"/>
+                    <Label text="∨" styleClass="input-icon"/>
+                </HBox>
+
+                <!-- Filter & Search -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <TextField fx:id="txtCari" promptText="🔍  Cari transaksi..."
+                               styleClass="input-field" prefWidth="260" HBox.hgrow="ALWAYS"/>
+                    <ComboBox fx:id="cbFilter" styleClass="combo-dark" prefWidth="150"/>
+                </HBox>
+
+                <!-- Scrollable transaksi list -->
+                <ScrollPane fitToWidth="true" styleClass="scroll-pane-dark" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="transaksiListContainer" spacing="0"/>
+                </ScrollPane>
+
+            </VBox>
+
+            <!-- RIGHT PANEL: Stats -->
+            <VBox spacing="16" styleClass="right-panel" prefWidth="290">
+                <padding><Insets top="28" right="20" bottom="28" left="16"/></padding>
+
+                <!-- Total Pemasukan Card -->
+                <VBox styleClass="stat-panel-card" spacing="8">
+                    <Label text="Total Pemasukan" styleClass="mini-card-label"/>
+                    <Label fx:id="lblTotalPemasukan" text="Rp 0" styleClass="stat-value-green"/>
+                    <ProgressBar fx:id="progressPemasukan" prefWidth="99999" prefHeight="5"
+                                 styleClass="progress-green" progress="0.7"/>
+                </VBox>
+
+                <!-- Total Pengeluaran Card -->
+                <VBox styleClass="stat-panel-card" spacing="8">
+                    <Label text="Total Pengeluaran" styleClass="mini-card-label"/>
+                    <Label fx:id="lblTotalPengeluaran" text="Rp 0" styleClass="stat-value-orange"/>
+                    <ProgressBar fx:id="progressPengeluaran" prefWidth="99999" prefHeight="5"
+                                 styleClass="progress-orange" progress="0.4"/>
+                </VBox>
+
+                <!-- Top Kategori -->
+                <VBox styleClass="stat-panel-card" spacing="12">
+                    <Label text="Top Kategori" styleClass="section-title"/>
+                    <VBox fx:id="topKategoriContainer" spacing="8"/>
+                    <Hyperlink text="LIHAT SEMUA ANALISIS" styleClass="link-accent-caps"
+                               onAction="#handleLaporan"/>
+                </VBox>
+
+                <!-- Wawasan -->
+                <VBox fx:id="wawasanCard" styleClass="wawasan-card" spacing="8">
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label text="WAWASAN BARU" styleClass="wawasan-badge"/>
+                    </HBox>
+                    <Label fx:id="lblWawasan" text="Arus kas Anda meningkat 12% dari bulan lalu."
+                           styleClass="wawasan-title" wrapText="true"/>
+                    <Label fx:id="lblWawasanSub"
+                           text="Pertahankan kebiasaan menabung ini untuk mencapai tujuan lebih cepat."
+                           styleClass="wawasan-text" wrapText="true"/>
+                    <Hyperlink text="Lihat Detail →" styleClass="link-accent"/>
+                </VBox>
+
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

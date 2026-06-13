@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.simanja.controller.FormTransaksiController"
+      styleClass="modal-dialog"
+      spacing="20" prefWidth="480"
+      alignment="TOP_CENTER">
+    <padding><Insets top="28" right="32" bottom="28" left="32"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="lblJudul" text="Catat Transaksi Baru" styleClass="modal-title" HBox.hgrow="ALWAYS"/>
+        <Button text="✕" styleClass="btn-modal-close" onAction="#handleBatal"/>
+    </HBox>
+
+    <!-- Toggle Pengeluaran / Pemasukan -->
+    <HBox spacing="0" styleClass="toggle-jenis-container">
+        <Button fx:id="btnJenisPengeluaran" text="✦  Pengeluaran"
+                styleClass="toggle-btn-active-red" prefWidth="200"
+                onAction="#handleTogglePengeluaran"/>
+        <Button fx:id="btnJenisPemasukan" text="💰  Pemasukan"
+                styleClass="toggle-btn-inactive" prefWidth="200"
+                onAction="#handleTogglePemasukan"/>
+    </HBox>
+
+    <!-- Nominal Uang -->
+    <VBox spacing="8">
+        <Label text="Nominal Uang" styleClass="field-label"/>
+        <HBox styleClass="amount-input-box" alignment="CENTER_LEFT" spacing="8">
+            <Label text="Rp" styleClass="amount-prefix"/>
+            <TextField fx:id="txtJumlah" promptText="0" styleClass="amount-input-field" HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </VBox>
+
+    <!-- Kategori + Sumber Dana -->
+    <HBox spacing="16">
+        <VBox spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Kategori" styleClass="field-label"/>
+            <ComboBox fx:id="cbKategori" styleClass="combo-dark" prefWidth="99999"/>
+        </VBox>
+        <VBox spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Sumber Dana" styleClass="field-label"/>
+            <ComboBox fx:id="cbSumberDana" styleClass="combo-dark" prefWidth="99999"/>
+        </VBox>
+    </HBox>
+
+    <!-- Tanggal Transaksi -->
+    <VBox spacing="8">
+        <Label text="Tanggal Transaksi" styleClass="field-label"/>
+        <DatePicker fx:id="dpTanggal" styleClass="datepicker-dark" prefWidth="99999"/>
+    </VBox>
+
+    <!-- Catatan -->
+    <VBox spacing="8">
+        <Label text="Catatan" styleClass="field-label"/>
+        <TextArea fx:id="txtKeterangan" promptText="Beli kopi, bayar listrik, dll..."
+                  styleClass="textarea-dark" prefHeight="80" wrapText="true"/>
+    </VBox>
+
+    <!-- Error -->
+    <Label fx:id="lblError" styleClass="error-label" wrapText="true" managed="false" visible="false"/>
+
+    <!-- Buttons -->
+    <HBox spacing="16" alignment="CENTER_RIGHT">
+        <Button text="Batal" fx:id="btnBatal" styleClass="btn-link-lg" onAction="#handleBatal"/>
+        <Button text="Simpan Transaksi" fx:id="btnSimpan" styleClass="btn-primary-full"
+                prefWidth="200" onAction="#handleSimpan"/>
+    </HBox>
+</VBox>
