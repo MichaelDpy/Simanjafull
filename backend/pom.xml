@@ -1,147 +1,101 @@
-package com.simanja.backend.controller;
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-import com.simanja.backend.dto.request.TransaksiRequest;
-import com.simanja.backend.dto.response.LaporanResponse;
-import com.simanja.backend.dto.response.SummaryResponse;
-import com.simanja.backend.dto.response.TransaksiResponse;
-import com.simanja.backend.service.TransaksiService;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/>
+    </parent>
 
-import java.util.List;
-import java.util.Map;
+    <groupId>com.simanja</groupId>
+    <artifactId>simanja-backend</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>SiManja Backend</name>
+    <description>REST API Backend untuk Sistem Manajemen Keuangan SiManja</description>
 
-/**
- * TransaksiController — REST Controller untuk CRUD transaksi dan laporan.
- *
- * Demonstrasi: Controller layer (MVC), Security (JWT authenticated)
- */
-@RestController
-@RequestMapping("/api/transaksi")
-public class TransaksiController {
+    <properties>
+        <java.version>17</java.version>
+        <jjwt.version>0.12.5</jjwt.version>
+    </properties>
 
-    private final TransaksiService transaksiService;
+    <dependencies>
+        <!-- Spring Boot Web (REST API) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-    public TransaksiController(TransaksiService transaksiService) {
-        this.transaksiService = transaksiService;
-    }
+        <!-- Spring Data JPA (ORM / Hibernate) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
-    /**
-     * GET /api/transaksi
-     * Ambil semua transaksi milik user yang login.
-     * Query param ?keyword= untuk pencarian.
-     */
-    @GetMapping
-    public ResponseEntity<List<TransaksiResponse>> getAll(
-            Authentication authentication,
-            @RequestParam(required = false) String keyword) {
+        <!-- Spring Security (Autentikasi & Otorisasi) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
-        String email = authentication.getName();
-        List<TransaksiResponse> list;
+        <!-- Spring Validation (Bean Validation / Input Validation) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
-        if (keyword != null && !keyword.isBlank()) {
-            list = transaksiService.cari(email, keyword);
-        } else {
-            list = transaksiService.getAllByUser(email);
-        }
+        <!-- H2 Database (In-Memory) -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.2.224</version>
+            <scope>runtime</scope>
+        </dependency>
 
-        return ResponseEntity.ok(list);
-    }
+        <!-- JWT — JJWT API -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
-    /**
-     * GET /api/transaksi/recent?limit=5
-     * Ambil transaksi terbaru (untuk dashboard).
-     */
-    @GetMapping("/recent")
-    public ResponseEntity<List<TransaksiResponse>> getRecent(
-            Authentication authentication,
-            @RequestParam(defaultValue = "5") int limit) {
+        <!-- Spring Boot Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-        String email = authentication.getName();
-        List<TransaksiResponse> list = transaksiService.getRecentByUser(email, limit);
-        return ResponseEntity.ok(list);
-    }
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
-    /**
-     * GET /api/transaksi/summary
-     * Ringkasan keuangan — total pemasukan, pengeluaran, saldo, tabungan.
-     */
-    @GetMapping("/summary")
-    public ResponseEntity<SummaryResponse> getSummary(Authentication authentication) {
-        String email = authentication.getName();
-        SummaryResponse summary = transaksiService.getSummary(email);
-        return ResponseEntity.ok(summary);
-    }
-
-    /**
-     * GET /api/transaksi/laporan
-     * Data laporan per bulan dan per kategori (untuk grafik).
-     */
-    @GetMapping("/laporan")
-    public ResponseEntity<LaporanResponse> getLaporan(Authentication authentication) {
-        String email = authentication.getName();
-        LaporanResponse laporan = transaksiService.getLaporan(email);
-        return ResponseEntity.ok(laporan);
-    }
-
-    /**
-     * GET /api/transaksi/{id}
-     * Detail transaksi berdasarkan ID.
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<TransaksiResponse> getById(
-            @PathVariable Long id,
-            Authentication authentication) {
-
-        String email = authentication.getName();
-        TransaksiResponse response = transaksiService.getById(id, email);
-        return ResponseEntity.ok(response);
-    }
-
-    /**
-     * POST /api/transaksi
-     * Tambah transaksi baru.
-     * @Valid memastikan Bean Validation dijalankan.
-     */
-    @PostMapping
-    public ResponseEntity<TransaksiResponse> tambah(
-            @Valid @RequestBody TransaksiRequest request,
-            Authentication authentication) {
-
-        String email = authentication.getName();
-        TransaksiResponse response = transaksiService.tambah(email, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-    }
-
-    /**
-     * PUT /api/transaksi/{id}
-     * Update transaksi yang ada.
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<TransaksiResponse> update(
-            @PathVariable Long id,
-            @Valid @RequestBody TransaksiRequest request,
-            Authentication authentication) {
-
-        String email = authentication.getName();
-        TransaksiResponse response = transaksiService.update(id, email, request);
-        return ResponseEntity.ok(response);
-    }
-
-    /**
-     * DELETE /api/transaksi/{id}
-     * Hapus transaksi.
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> hapus(
-            @PathVariable Long id,
-            Authentication authentication) {
-
-        String email = authentication.getName();
-        transaksiService.hapus(id, email);
-        return ResponseEntity.ok(Map.of("message", "Transaksi berhasil dihapus"));
-    }
-}
+</project>
