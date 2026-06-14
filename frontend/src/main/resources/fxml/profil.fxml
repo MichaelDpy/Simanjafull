@@ -224,7 +224,7 @@
                             <VBox spacing="6">
                                 <Label text="Kata Sandi Baru" styleClass="field-label"/>
                                 <PasswordField fx:id="txtPasswordBaru" styleClass="input-field"
-                                               promptText="Minimal 6 karakter"/>
+                                               promptText="Minimal 8 karakter"/>
                             </VBox>
                             <VBox spacing="6">
                                 <Label text="Konfirmasi Kata Sandi Baru" styleClass="field-label"/>
