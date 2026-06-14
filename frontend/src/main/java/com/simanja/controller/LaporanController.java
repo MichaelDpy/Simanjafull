@@ -11,7 +11,12 @@ import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Controller untuk Laporan Keuangan
@@ -49,15 +54,31 @@ public class LaporanController {
 
         int userId = SessionManager.getInstance().getCurrentUser().getId();
 
-        loadBarChart(userId);
-        loadPieChart(userId);
-        loadStatistik(userId);
-        loadInsights(userId);
+        try {
+            // Panggil laporan sekali, gunakan hasilnya untuk semua chart
+            TransaksiService.LaporanResponse laporan = service.getLaporanResponse();
+            loadBarChart(laporan);
+            loadPieChart(laporan);
+
+            // Panggil summary sekali untuk statistik
+            TransaksiService.SummaryResponse summary = service.getSummaryResponse();
+            loadStatistik(summary);
+
+            loadInsights(userId, laporan);
+        } catch (Exception e) {
+            System.err.println("Gagal memuat data laporan: " + e.getMessage());
+            // Set default values jika backend tidak tersedia
+            lblTotalPemasukan.setText("Rp 0");
+            lblTotalPengeluaran.setText("Rp 0");
+            lblSaldo.setText("Rp 0");
+            if (lblRataPemasukan != null) lblRataPemasukan.setText("Rp 0");
+            if (lblRataPengeluaran != null) lblRataPengeluaran.setText("Rp 0");
+        }
     }
 
-    private void loadBarChart(int userId) {
-        Map<String, Double> pemasukan   = service.getPemasukanPerBulan(userId);
-        Map<String, Double> pengeluaran = service.getPengeluaranPerBulan(userId);
+    private void loadBarChart(TransaksiService.LaporanResponse laporan) {
+        Map<String, Double> pemasukan   = laporan.pemasukanPerBulan();
+        Map<String, Double> pengeluaran = laporan.pengeluaranPerBulan();
 
         XYChart.Series<String, Number> seriPemasukan   = new XYChart.Series<>();
         XYChart.Series<String, Number> seriPengeluaran = new XYChart.Series<>();
@@ -74,9 +95,9 @@ public class LaporanController {
         barChart.setBarGap(4);
     }
 
-    private void loadPieChart(int userId) {
+    private void loadPieChart(TransaksiService.LaporanResponse laporan) {
         if (pieChart == null) return;
-        Map<String, Double> perKategori = service.getPengeluaranPerKategori(userId);
+        Map<String, Double> perKategori = laporan.pengeluaranPerKategori();
         var data = FXCollections.<PieChart.Data>observableArrayList();
         perKategori.forEach((kat, val) -> data.add(new PieChart.Data(kat, val)));
         pieChart.setData(data);
@@ -84,10 +105,10 @@ public class LaporanController {
         pieChart.setLabelsVisible(false);
     }
 
-    private void loadStatistik(int userId) {
-        double totalPemasukan   = service.getTotalPemasukan(userId);
-        double totalPengeluaran = service.getTotalPengeluaran(userId);
-        double saldo            = service.getSaldo(userId);
+    private void loadStatistik(TransaksiService.SummaryResponse summary) {
+        double totalPemasukan   = summary.totalPemasukan();
+        double totalPengeluaran = summary.totalPengeluaran();
+        double saldo            = summary.saldo();
         double rataPemasukan    = totalPemasukan / 6;
         double rataPengeluaran  = totalPengeluaran / 6;
 
@@ -98,8 +119,8 @@ public class LaporanController {
         lblRataPengeluaran.setText(CurrencyFormatter.format(rataPengeluaran));
     }
 
-    private void loadInsights(int userId) {
-        Map<String, Double> byKat = service.getPengeluaranPerKategori(userId);
+    private void loadInsights(int userId, TransaksiService.LaporanResponse laporan) {
+        Map<String, Double> byKat = laporan.pengeluaranPerKategori();
 
         // Kategori terboros
         if (lblKategoriTerboros != null) {
@@ -110,19 +131,41 @@ public class LaporanController {
                     + e.getKey() + ", yaitu sebesar " + CurrencyFormatter.format(e.getValue()) + "."));
         }
 
-        // Hari paling boros (dummy)
+        // Hari paling boros (Dihitung dari transaksi bulan ini)
         if (lblHariTerboros != null) {
-            lblHariTerboros.setText(
-                "Kamu paling banyak mengeluarkan uang pada hari Sabtu " +
-                "(Rata-rata Rp 300.000 per Sabtu).");
+            try {
+                List<com.simanja.model.Transaksi> semuaTrans = service.getAllByUser(userId);
+                Map<DayOfWeek, Double> byDay = semuaTrans.stream()
+                    .filter(t -> t.getJenis() == com.simanja.model.Transaksi.JenisTransaksi.PENGELUARAN)
+                    .collect(Collectors.groupingBy(
+                        t -> t.getTanggal().getDayOfWeek(),
+                        Collectors.summingDouble(com.simanja.model.Transaksi::getJumlah)
+                    ));
+
+                byDay.entrySet().stream()
+                    .max(Map.Entry.comparingByValue())
+                    .ifPresentOrElse(e -> {
+                        String hari = e.getKey().getDisplayName(TextStyle.FULL, new Locale("id", "ID"));
+                        lblHariTerboros.setText("Kamu paling banyak mengeluarkan uang pada hari " + hari + ".");
+                    }, () -> {
+                        lblHariTerboros.setText("Belum ada data pengeluaran yang cukup.");
+                    });
+            } catch (Exception e) {
+                lblHariTerboros.setText("Belum ada data pengeluaran yang cukup.");
+            }
         }
 
         // Rata-rata harian (asumsi 30 hari)
         if (lblRataHarian != null) {
-            double rataHarian = service.getTotalPengeluaran(userId) / 30;
-            lblRataHarian.setText(
-                "Rata-rata uang yang kamu habiskan setiap harinya di bulan ini adalah "
-                + CurrencyFormatter.format(rataHarian) + "/hari.");
+            try {
+                TransaksiService.SummaryResponse summary = service.getSummaryResponse();
+                double rataHarian = summary.totalPengeluaran() / 30;
+                lblRataHarian.setText(
+                    "Rata-rata uang yang kamu habiskan setiap harinya di bulan ini adalah "
+                    + CurrencyFormatter.format(rataHarian) + "/hari.");
+            } catch (Exception e) {
+                lblRataHarian.setText("Data rata-rata harian belum tersedia.");
+            }
         }
     }
 
