@@ -119,9 +119,17 @@ public class BuatTargetController {
             return;
         }
 
-        int userId = SessionManager.getInstance().getCurrentUser().getId();
-        targetService.buatTarget(nama, selectedIcon, amount, dpDeadline.getValue(), userId);
-        close();
+        try {
+            int userId = SessionManager.getInstance().getCurrentUser().getId();
+            targetService.buatTarget(nama, selectedIcon, amount, dpDeadline.getValue(), userId);
+            close();
+        } catch (Exception e) {
+            if (lblError != null) {
+                lblError.setText("Gagal membuat target: " + e.getMessage());
+                lblError.setVisible(true);
+                lblError.setManaged(true);
+            }
+        }
     }
 
     @FXML
