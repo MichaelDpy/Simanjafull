@@ -46,10 +46,19 @@ public class TargetController {
     }
 
     private void refresh(int userId) {
-        lblTotalTabungan.setText(CurrencyFormatter.format(targetService.getTotalTabungan(userId)));
-        targetListContainer.getChildren().clear();
-        for (Target target : targetService.getAllByUser(userId)) {
-            targetListContainer.getChildren().add(buildTargetCard(target));
+        try {
+            lblTotalTabungan.setText(CurrencyFormatter.format(targetService.getTotalTabungan(userId)));
+            targetListContainer.getChildren().clear();
+            for (Target target : targetService.getAllByUser(userId)) {
+                targetListContainer.getChildren().add(buildTargetCard(target));
+            }
+        } catch (Exception e) {
+            System.err.println("Gagal memuat data target: " + e.getMessage());
+            lblTotalTabungan.setText("Rp 0");
+            targetListContainer.getChildren().clear();
+            Label error = new Label("Gagal memuat data. Pastikan server backend berjalan.");
+            error.setStyle("-fx-text-fill: #a0aabf; -fx-font-style: italic; -fx-padding: 24;");
+            targetListContainer.getChildren().add(error);
         }
     }
 
