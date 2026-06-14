@@ -17,11 +17,6 @@
 
     <dependencies>
         <!-- JavaFX -->
-             <dependency>
-    <groupId>org.openjfx</groupId>
-    <artifactId>javafx-charts</artifactId>
-    <version>${javafx.version}</version>
-</dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
