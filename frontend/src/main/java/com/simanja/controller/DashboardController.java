@@ -86,24 +86,42 @@ public class DashboardController {
         if (lblNamaDashboard != null) lblNamaDashboard.setText(user.getNama());
         applyProfileAvatar(user);
 
-        // Summary
-        double totalPemasukan   = transaksiService.getTotalPemasukan(userId);
-        double totalPengeluaran = transaksiService.getTotalPengeluaran(userId);
-        double saldo            = transaksiService.getSaldo(userId);
-        double sisaBudget       = totalPemasukan - totalPengeluaran;
+        try {
+            // Summary — panggil sekali, gunakan hasilnya untuk semua label
+            TransaksiService.SummaryResponse summary = transaksiService.getSummaryResponse();
+            double totalPemasukan   = summary.totalPemasukan();
+            double totalPengeluaran = summary.totalPengeluaran();
+            double saldo            = summary.saldo();
+            double sisaBudget       = totalPemasukan - totalPengeluaran;
 
-        lblSaldo.setText(CurrencyFormatter.format(saldo));
-        lblTotalPemasukan.setText(CurrencyFormatter.format(totalPemasukan));
-        lblTotalPengeluaran.setText(CurrencyFormatter.format(totalPengeluaran));
-        if (lblSisaBudget != null) {
-            lblSisaBudget.setText(CurrencyFormatter.format(Math.max(0, sisaBudget)));
+            lblSaldo.setText(CurrencyFormatter.format(saldo));
+            lblTotalPemasukan.setText(CurrencyFormatter.format(totalPemasukan));
+            lblTotalPengeluaran.setText(CurrencyFormatter.format(totalPengeluaran));
+            if (lblSisaBudget != null) {
+                lblSisaBudget.setText(CurrencyFormatter.format(Math.max(0, sisaBudget)));
+            }
+
+            // Laporan — panggil sekali untuk chart
+            TransaksiService.LaporanResponse laporan = transaksiService.getLaporanResponse();
+            loadLineChart(laporan);
+            loadPieChart(laporan);
+
+            loadTableTransaksi(userId);
+        } catch (Exception e) {
+            System.err.println("Gagal memuat data dashboard: " + e.getMessage());
+            lblSaldo.setText("Rp 0");
+            lblTotalPemasukan.setText("Rp 0");
+            lblTotalPengeluaran.setText("Rp 0");
         }
 
-        loadLineChart(userId);
-        loadPieChart(userId);
-        loadTableTransaksi(userId);
         loadBudgetStatus();
-        loadGoalsTracker(userId);
+
+        try {
+            loadGoalsTracker(userId);
+        } catch (Exception e) {
+            System.err.println("Gagal memuat goals: " + e.getMessage());
+        }
+
         loadTagihanMendatang();
     }
 
@@ -140,9 +158,9 @@ public class DashboardController {
         lblAvatarDashboard.setManaged(true);
     }
 
-    private void loadLineChart(int userId) {
-        Map<String, Double> pemasukan   = transaksiService.getPemasukanPerBulan(userId);
-        Map<String, Double> pengeluaran = transaksiService.getPengeluaranPerBulan(userId);
+    private void loadLineChart(TransaksiService.LaporanResponse laporan) {
+        Map<String, Double> pemasukan   = laporan.pemasukanPerBulan();
+        Map<String, Double> pengeluaran = laporan.pengeluaranPerBulan();
 
         XYChart.Series<String, Number> seriPemasukan   = new XYChart.Series<>();
         XYChart.Series<String, Number> seriPengeluaran = new XYChart.Series<>();
@@ -157,8 +175,8 @@ public class DashboardController {
         lineChart.setAnimated(false);
     }
 
-    private void loadPieChart(int userId) {
-        Map<String, Double> perKategori = transaksiService.getPengeluaranPerKategori(userId);
+    private void loadPieChart(TransaksiService.LaporanResponse laporan) {
+        Map<String, Double> perKategori = laporan.pengeluaranPerKategori();
         var data = FXCollections.<PieChart.Data>observableArrayList();
         perKategori.forEach((kat, val) -> data.add(new PieChart.Data(kat, val)));
         pieChart.setData(data);
@@ -205,32 +223,9 @@ public class DashboardController {
         if (budgetStatusContainer == null) return;
         budgetStatusContainer.getChildren().clear();
 
-        // Dummy budget data
-        String[][] budgets = {
-            {"Jajan", "950000", "1000000", "95"},
-            {"Groceries", "1800000", "2000000", "90"}
-        };
-
-        for (String[] b : budgets) {
-            VBox item = new VBox(6);
-            HBox header = new HBox();
-            Label name = new Label(b[0] + " (Rp " + formatK(Double.parseDouble(b[1]))
-                + "/" + formatK(Double.parseDouble(b[2])) + ")");
-            name.getStyleClass().add("budget-item-label");
-            HBox.setHgrow(name, Priority.ALWAYS);
-            Label pct = new Label(b[3] + "%");
-            pct.getStyleClass().add("budget-item-pct");
-            header.getChildren().addAll(name, pct);
-
-            ProgressBar pb = new ProgressBar(Double.parseDouble(b[3]) / 100.0);
-            pb.prefWidthProperty().bind(budgetStatusContainer.widthProperty());
-            pb.setPrefHeight(6);
-            int pctVal = Integer.parseInt(b[3]);
-            pb.getStyleClass().add(pctVal >= 90 ? "progress-danger" : "progress-orange");
-
-            item.getChildren().addAll(header, pb);
-            budgetStatusContainer.getChildren().add(item);
-        }
+        Label emptyBudget = new Label("Fitur Limit Budget akan segera hadir.");
+        emptyBudget.setStyle("-fx-text-fill: #a0aabf; -fx-font-style: italic;");
+        budgetStatusContainer.getChildren().add(emptyBudget);
     }
 
     private void loadGoalsTracker(int userId) {
@@ -266,38 +261,9 @@ public class DashboardController {
         if (tagihanContainer == null) return;
         tagihanContainer.getChildren().clear();
 
-        // Dummy tagihan
-        String[][] tagihan = {
-            {"▶", "Netflix",     "3 hari lagi",  "186000"},
-            {"♪", "Spotify",     "5 hari lagi",  "55000"},
-            {"⚡", "Electricity", "10 hari lagi", "450000"}
-        };
-
-        for (String[] t : tagihan) {
-            HBox row = new HBox(10);
-            row.getStyleClass().add("tagihan-row");
-            row.setAlignment(Pos.CENTER_LEFT);
-            row.setPadding(new Insets(10, 12, 10, 12));
-
-            Label icon = new Label(t[0]);
-            icon.getStyleClass().add("tagihan-icon");
-            icon.setMinSize(32, 32);
-            icon.setAlignment(Pos.CENTER);
-
-            VBox info = new VBox(2);
-            HBox.setHgrow(info, Priority.ALWAYS);
-            Label name = new Label(t[1]);
-            name.getStyleClass().add("tagihan-name");
-            Label due = new Label(t[2]);
-            due.getStyleClass().add("tagihan-due");
-            info.getChildren().addAll(name, due);
-
-            Label amount = new Label(CurrencyFormatter.format(Double.parseDouble(t[3])));
-            amount.getStyleClass().add("tagihan-amount");
-
-            row.getChildren().addAll(icon, info, amount);
-            tagihanContainer.getChildren().add(row);
-        }
+        Label emptyTagihan = new Label("Tidak ada tagihan mendatang saat ini.");
+        emptyTagihan.setStyle("-fx-text-fill: #a0aabf; -fx-font-style: italic;");
+        tagihanContainer.getChildren().add(emptyTagihan);
     }
 
     private String formatK(double val) {
