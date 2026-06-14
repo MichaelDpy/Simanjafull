@@ -3,6 +3,7 @@ package com.simanja.controller;
 import com.simanja.model.User;
 import com.simanja.util.SceneManager;
 import com.simanja.util.SessionManager;
+import com.simanja.service.UserService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -208,46 +209,95 @@ public class ProfilController {
             return;
         }
 
-        // Update semua field
-        user.setNama(namaLengkap);
-        user.setUsername(txtUsername.getText().trim());
-        user.setEmail(email);
-        user.setTelepon(txtTelepon.getText().trim());
-        user.setAlamat(txtAlamat.getText().trim());
-        if (cbJenisKelamin.getValue() != null) {
-            user.setJenisKelamin(cbJenisKelamin.getValue());
+        String username = txtUsername.getText().trim();
+        String telepon = txtTelepon.getText().trim();
+        String alamat = txtAlamat.getText().trim();
+        String jenisKelamin = cbJenisKelamin.getValue() != null ? cbJenisKelamin.getValue() : "";
+        String tglLahir = txtTanggalLahir.getText().trim();
+
+        // Cek apakah user ingin mengubah password
+        String passwordLama = txtPasswordLama != null ? txtPasswordLama.getText().trim() : "";
+        String passwordBaru = txtPasswordBaru != null ? txtPasswordBaru.getText().trim() : "";
+        String passwordKonfirm = txtPasswordKonfirm != null ? txtPasswordKonfirm.getText().trim() : "";
+
+        boolean gantiPassword = !passwordLama.isEmpty() || !passwordBaru.isEmpty() || !passwordKonfirm.isEmpty();
+
+        if (gantiPassword) {
+            // Validasi password
+            if (passwordLama.isEmpty()) {
+                showError("Password lama harus diisi.");
+                return;
+            }
+            if (passwordBaru.isEmpty()) {
+                showError("Password baru harus diisi.");
+                return;
+            }
+            if (passwordBaru.length() < 6) {
+                showError("Password baru minimal 6 karakter.");
+                return;
+            }
+            if (!passwordBaru.equals(passwordKonfirm)) {
+                showError("Konfirmasi password baru tidak cocok.");
+                return;
+            }
+
+            // Ubah password dulu
+            try {
+                UserService userService = new UserService();
+                userService.changePassword(passwordLama, passwordBaru, passwordKonfirm);
+                showSuccess("Password berhasil diubah!");
+            } catch (Exception e) {
+                String errMsg = e.getMessage();
+                if (errMsg.contains("Password lama tidak cocok")) {
+                    showError("Password lama yang Anda masukkan salah.");
+                } else if (errMsg.contains("Konfirmasi password baru tidak cocok")) {
+                    showError("Konfirmasi password tidak cocok.");
+                } else if (errMsg.contains("Password baru harus berbeda")) {
+                    showError("Password baru harus berbeda dengan password lama.");
+                } else {
+                    showError("Gagal mengubah password: " + errMsg);
+                }
+                return;
+            }
+
+            // Clear password fields setelah berhasil
+            txtPasswordLama.clear();
+            txtPasswordBaru.clear();
+            txtPasswordKonfirm.clear();
         }
-        user.setTanggalLahir(txtTanggalLahir.getText().trim());
 
-        // Ubah password jika diisi
-        String passBaru = txtPasswordBaru.getText();
-        if (!passBaru.isEmpty()) {
-            String passLama    = txtPasswordLama.getText();
-            String passKonfirm = txtPasswordKonfirm.getText();
-
-            if (passLama.isEmpty()) {
-                showError("Masukkan kata sandi lama untuk mengubah password.");
-                return;
-            }
-            if (!passLama.equals(user.getPassword())) {
-                showError("Kata sandi lama tidak cocok.");
-                return;
-            }
-            if (passBaru.length() < 6) {
-                showError("Kata sandi baru minimal 6 karakter.");
-                return;
-            }
-            if (!passBaru.equals(passKonfirm)) {
-                showError("Konfirmasi kata sandi baru tidak cocok.");
-                return;
-            }
-            user.setPassword(passBaru);
+        // Update profil (data pribadi)
+        try {
+            UserService userService = new UserService();
+            User updatedUser = userService.updateProfile(namaLengkap, username, telepon, jenisKelamin, tglLahir, alamat, user.getProfileImagePath());
+            
+            // Karena email belum didukung update di endpoint backend saat ini, kita set manual jika perlu
+            updatedUser.setEmail(email);
+            
+            // Timpa instance lama dengan yang baru
+            SessionManager.getInstance().login(updatedUser, SessionManager.getInstance().getJwtToken());
+            user = updatedUser;
+        } catch (Exception e) {
+            showError("Gagal menyimpan profil ke server: " + e.getMessage());
+            return;
         }
 
         // Refresh view dan kembali ke mode view
         refreshView(user);
-        showSuccess("Perubahan berhasil disimpan.");
-        showViewMode();
+        
+        if (gantiPassword) {
+            showSuccess("Profil dan password berhasil diubah!");
+        } else {
+            showSuccess("Profil berhasil disimpan.");
+        }
+        
+        // Delay sebelum kembali ke view mode
+        javafx.application.Platform.runLater(() -> {
+            try {
+                Thread.sleep(1500); // Tampilkan pesan selama 1.5 detik
+            } catch (InterruptedException ignored) {}
+            showViewMode();
+        });
     }
 
     // ── Ubah Foto Profil ──
@@ -273,6 +323,20 @@ public class ProfilController {
                 if (!img.isError()) {
                     // Simpan path ke model user
                     user.setProfileImagePath(selectedFile.getAbsolutePath());
+
+                    // Simpan instan ke database
+                    try {
+                        UserService userService = new UserService();
+                        User updatedUser = userService.updateProfile(
+                            user.getNama(), user.getUsername(), user.getTelepon(), 
+                            user.getJenisKelamin(), user.getTanggalLahir(), user.getAlamat(), 
+                            user.getProfileImagePath()
+                        );
+                        updatedUser.setEmail(user.getEmail());
+                        SessionManager.getInstance().login(updatedUser, SessionManager.getInstance().getJwtToken());
+                    } catch (Exception ex) {
+                        showError("Foto gagal disimpan ke database: " + ex.getMessage());
+                    }
 
                     // Tampilkan foto baru
                     imgAvatar.setImage(img);
