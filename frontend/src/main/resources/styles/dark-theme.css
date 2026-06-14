@@ -118,6 +118,14 @@
     -fx-text-fill: #556677;
     -fx-font-size: 14px;
 }
+.input-icon-action {
+    -fx-text-fill: #8899aa;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.input-icon-action:hover {
+    -fx-text-fill: #e0e0e0;
+}
 .input-field-borderless {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
