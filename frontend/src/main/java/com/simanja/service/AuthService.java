@@ -1,94 +1,99 @@
 package com.simanja.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.simanja.model.User;
+import com.simanja.util.ApiClient;
 import com.simanja.util.SessionManager;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
  * AuthService — Service layer untuk autentikasi
- * Demonstrasi: Service layer, Encapsulation, Validasi
+ * Terintegrasi dengan backend REST API (Spring Boot)
  */
 public class AuthService {
 
-    // Data dummy pengguna
-    private static final List<User> dummyUsers = new ArrayList<>();
-
-    static {
-        User admin = new User(1, "Admin SiManja", "admin@simanja.com", "admin123", "ADMIN");
-        admin.setUsername("adminsimanja");
-        admin.setTelepon("0812-0000-0001");
-        admin.setJenisKelamin("Laki-laki");
-        admin.setTanggalLahir("01 Januari 2000");
-        admin.setAlamat("Jl. Simanja No. 1, Jakarta Pusat");
-        dummyUsers.add(admin);
-
-        User budi = new User(2, "Budi Santoso", "budi@simanja.com", "budi123", "USER");
-        budi.setUsername("budisantoso");
-        budi.setTelepon("0812-3456-7890");
-        budi.setJenisKelamin("Laki-laki");
-        budi.setTanggalLahir("15 Juni 1995");
-        budi.setAlamat("Jl. Midnight Ledger No. 88, Jakarta Selatan");
-        dummyUsers.add(budi);
-
-        User siti = new User(3, "Siti Rahayu", "siti@simanja.com", "siti123", "USER");
-        siti.setUsername("sitirahayu");
-        siti.setTelepon("0856-7890-1234");
-        siti.setJenisKelamin("Perempuan");
-        siti.setTanggalLahir("20 Maret 1998");
-        siti.setAlamat("Jl. Mawar No. 12, Bandung");
-        dummyUsers.add(siti);
-    }
-
     /**
-     * Login dengan validasi email dan password
-     * @return User jika berhasil, kosong jika gagal
+     * DTO records untuk request & response ke backend.
+     * Menggunakan Java 17 records agar lebih ringkas.
      */
+    record LoginRequest(String email, String password) {}
+    
+    record RegisterRequest(String nama, String email, String password, String konfirmPassword) {}
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    record AuthResponse(String token, int userId, String nama, String email, String role) {}
+
     public Optional<User> login(String email, String password) {
-        // Validasi input
+        // Validasi input sisi klien (opsional, untuk UX yang lebih cepat)
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("Email tidak boleh kosong.");
         }
         if (password == null || password.isBlank()) {
             throw new IllegalArgumentException("Password tidak boleh kosong.");
         }
-        if (!email.contains("@")) {
-            throw new IllegalArgumentException("Format email tidak valid.");
+
+        try {
+            LoginRequest req = new LoginRequest(email, password);
+            AuthResponse resp = ApiClient.post("/auth/login", req, AuthResponse.class);
+
+            // Mapping dari DTO ke Model frontend (hanya info dasar)
+            User tempUser = new User(resp.userId(), resp.nama(), resp.email(), "", resp.role());
+            
+            // Simpan state user & JWT Token sementara untuk mengambil data profil yang butuh Auth Header
+            SessionManager.getInstance().login(tempUser, resp.token());
+            
+            // Ambil profile lengkap dari backend yang memuat profileImagePath, alamat, dll
+            try {
+                UserService userService = new UserService();
+                User fullProfile = userService.getProfile();
+                // Override email dari AuthResponse jika getProfile() tidak memberikan email (atau kosong)
+                if (fullProfile.getEmail() == null || fullProfile.getEmail().isEmpty()) {
+                    fullProfile.setEmail(resp.email());
+                }
+                SessionManager.getInstance().login(fullProfile, resp.token());
+                return Optional.of(fullProfile);
+            } catch (Exception ex) {
+                // Jika getProfile gagal, gunakan tempUser sebagai fallback
+                System.err.println("Gagal mengambil data profil penuh saat login: " + ex.getMessage());
+                return Optional.of(tempUser);
+            }
+        } catch (RuntimeException e) {
+            System.err.println("Login gagal: " + e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
         }
-
-        Optional<User> user = dummyUsers.stream()
-            .filter(u -> u.getEmail().equalsIgnoreCase(email)
-                      && u.getPassword().equals(password))
-            .findFirst();
-
-        user.ifPresent(u -> SessionManager.getInstance().login(u));
-        return user;
     }
 
     /**
-     * Register pengguna baru
+     * Register pengguna baru via REST API
      */
     public User register(String nama, String email, String password, String konfirmPassword) {
-        // Validasi
-        if (nama == null || nama.isBlank())
-            throw new IllegalArgumentException("Nama tidak boleh kosong.");
-        if (email == null || !email.contains("@"))
-            throw new IllegalArgumentException("Format email tidak valid.");
-        if (password == null || password.length() < 6)
-            throw new IllegalArgumentException("Password minimal 6 karakter.");
-        if (!password.equals(konfirmPassword))
-            throw new IllegalArgumentException("Konfirmasi password tidak cocok.");
+        try {
+            RegisterRequest req = new RegisterRequest(nama, email, password, konfirmPassword);
+            AuthResponse resp = ApiClient.post("/auth/register", req, AuthResponse.class);
 
-        boolean emailExists = dummyUsers.stream()
-            .anyMatch(u -> u.getEmail().equalsIgnoreCase(email));
-        if (emailExists)
-            throw new IllegalArgumentException("Email sudah terdaftar.");
-
-        User newUser = new User(dummyUsers.size() + 1, nama, email, password, "USER");
-        dummyUsers.add(newUser);
-        return newUser;
+            User tempUser = new User(resp.userId(), resp.nama(), resp.email(), "", resp.role());
+            
+            // Simpan state & token sementara
+            SessionManager.getInstance().login(tempUser, resp.token());
+            
+            // Ambil profile lengkap untuk menjamin format model frontend konsisten (walau akun baru)
+            try {
+                UserService userService = new UserService();
+                User fullProfile = userService.getProfile();
+                if (fullProfile.getEmail() == null || fullProfile.getEmail().isEmpty()) {
+                    fullProfile.setEmail(resp.email());
+                }
+                SessionManager.getInstance().login(fullProfile, resp.token());
+                return fullProfile;
+            } catch (Exception ex) {
+                System.err.println("Gagal mengambil data profil penuh saat register: " + ex.getMessage());
+                return tempUser;
+            }
+        } catch (RuntimeException e) {
+            System.err.println("Register gagal: " + e.getMessage());
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     public void logout() {
