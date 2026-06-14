@@ -73,11 +73,20 @@ public class TransaksiController {
     }
 
     private void loadData() {
-        int userId = SessionManager.getInstance().getCurrentUser().getId();
-        List<Transaksi> list = service.getAllByUser(userId);
-        renderTransaksiList(list);
-        updateSummary(list);
-        renderTopKategori(userId);
+        try {
+            int userId = SessionManager.getInstance().getCurrentUser().getId();
+            List<Transaksi> list = service.getAllByUser(userId);
+            renderTransaksiList(list);
+            updateSummary(list);
+            renderTopKategori(userId);
+        } catch (Exception e) {
+            System.err.println("Gagal memuat data transaksi: " + e.getMessage());
+            transaksiListContainer.getChildren().clear();
+            Label error = new Label("Gagal memuat data. Pastikan server backend berjalan.");
+            error.getStyleClass().add("page-subtitle");
+            error.setPadding(new Insets(24));
+            transaksiListContainer.getChildren().add(error);
+        }
     }
 
     private void renderTransaksiList(List<Transaksi> list) {
@@ -233,8 +242,8 @@ public class TransaksiController {
                 Label name = new Label(e.getKey());
                 name.getStyleClass().add("top-kat-name");
 
-                // dummy jumlah transaksi
-                Label count = new Label("Transaksi");
+                // Label jumlah transaksi
+                Label count = new Label("Kategori: " + e.getKey());
                 count.getStyleClass().add("top-kat-count");
                 info.getChildren().addAll(name, count);
 
@@ -307,8 +316,18 @@ public class TransaksiController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            service.hapus(t.getId());
-            loadData();
+            try {
+                service.hapus(t.getId());
+                loadData();
+            } catch (Exception e) {
+                Alert errAlert = new Alert(Alert.AlertType.ERROR);
+                errAlert.setTitle("Error");
+                errAlert.setHeaderText("Gagal menghapus transaksi");
+                errAlert.setContentText(e.getMessage());
+                errAlert.getDialogPane().getStylesheets().add(
+                    getClass().getResource("/styles/dark-theme.css").toExternalForm());
+                errAlert.showAndWait();
+            }
         }
     }
 
