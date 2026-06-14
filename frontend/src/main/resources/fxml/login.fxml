@@ -80,8 +80,11 @@
                     <Label text="Kata Sandi" styleClass="field-label"/>
                     <HBox styleClass="input-field-wrapper" alignment="CENTER_LEFT" spacing="10">
                         <Label text="🔒" styleClass="input-icon"/>
-                        <PasswordField fx:id="txtPassword" promptText="••••••••"
-                                       styleClass="input-field-borderless" HBox.hgrow="ALWAYS"/>
+                        <StackPane alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                            <PasswordField fx:id="txtPassword" promptText="••••••••" styleClass="input-field-borderless" />
+                            <TextField fx:id="txtPasswordVisible" promptText="••••••••" styleClass="input-field-borderless" visible="false" managed="false"/>
+                        </StackPane>
+                        <Label fx:id="lblTogglePassword" text="👁" styleClass="input-icon-action"/>
                     </HBox>
                 </VBox>
 
